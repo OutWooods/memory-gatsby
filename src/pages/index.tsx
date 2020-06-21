@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { PageProps } from 'gatsby';
 import Layout from '../components/layout';
 
-export const IndexRoute: React.FunctionComponent<PageProps> = () => {
+const IndexPage = (): JSX.Element => {
     const [count, setCount] = useState(0);
 
     return (
@@ -13,3 +12,5 @@ export const IndexRoute: React.FunctionComponent<PageProps> = () => {
         </Layout>
     );
 };
+
+export default IndexPage;

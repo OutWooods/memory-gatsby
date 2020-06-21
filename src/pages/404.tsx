@@ -1,9 +1,10 @@
 import React from 'react';
-import { PageProps } from 'gatsby';
 
-export const Error404Route: React.FunctionComponent<PageProps> = () => (
+const NotFoundPage = (): JSX.Element => (
     <div>
         <h1>You are here!</h1>
         <h2>But nothing found for you #404</h2>
     </div>
 );
+
+export default NotFoundPage;
