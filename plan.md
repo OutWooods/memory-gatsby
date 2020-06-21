@@ -4,4 +4,8 @@
 
 [] Deploy to netlify
 
+[] Add tailwind
+
 [] Fork off project to make others
+
+[] Maybe add
