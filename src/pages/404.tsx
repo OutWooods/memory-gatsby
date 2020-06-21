@@ -1,11 +1,9 @@
-import { PageProps } from "gatsby"
-import React from "react"
+import React from 'react';
+import { PageProps } from 'gatsby';
 
-const Error404Page: React.FC<PageProps> = () => (
+export const Error404Route: React.FunctionComponent<PageProps> = () => (
     <div>
-    <h1>You are here!</h1>
-    <h2>But nothing found for you #404</h2>
+        <h1>You are here!</h1>
+        <h2>But nothing found for you #404</h2>
     </div>
-)
-
-export default Error404Page
+);
