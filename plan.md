@@ -7,3 +7,7 @@
 [x] Add tailwind
 
 [x] Fork off project to make others
+
+[] Get auto save formatting for vscode
+
+[] Add format checks to builds
