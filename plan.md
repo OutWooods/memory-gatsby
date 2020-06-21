@@ -2,8 +2,8 @@
 
 [x] Setup linter
 
-[] Deploy to netlify
+[x] Deploy to netlify
 
-[] Add tailwind
+[x] Add tailwind
 
-[] Fork off project to make others
+[x] Fork off project to make others
