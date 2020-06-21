@@ -1,4 +1,7 @@
-1. Deploy to netlify
-2. Setup Typecsript
-3. Setup linter
-4. Fork off project to make others
+[x] Deploy to netlify
+
+[] Setup Typecsript
+
+[] Setup linter
+
+[] Fork off project to make others
