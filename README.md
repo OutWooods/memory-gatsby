@@ -101,3 +101,5 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 ## Notes
 
 https://www.wisdomgeek.com/development/web-development/how-to-gatsbyjs-typescript-eslint/ useful source
+
+https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project good for linting
