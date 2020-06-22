@@ -17,6 +17,7 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
+    "date-fns": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.0",
     "gatsby": "^2.23.3",
