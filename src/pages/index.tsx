@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import Layout from '../components/layout';
 import { MemoryCard } from '../store/main';
-import { startOfTomorrow, isToday } from 'date-fns';
+import { startOfTomorrow, isToday, addDays } from 'date-fns';
 // https://www.carlrippon.com/managing-state-in-functional-react-components-with-usereducer/ <- do this later
 
 interface IState {
@@ -30,11 +30,38 @@ const wrong = (cards: MemoryCard[], id: number) => {
     return { cards: cards };
 };
 
+enum ADDITIONAL_DAYS {
+    DAY_1 = 1,
+    DAY_2 = 3,
+    DAY_3 = 5,
+    DAY_4 = 7,
+    DAY_5 = 30,
+    DEFAULT = 90,
+}
+
+const getDaysToAdd = (value: number): number => {
+    const name = `DAY_${value}`;
+    return ADDITIONAL_DAYS[name as keyof typeof ADDITIONAL_DAYS] || ADDITIONAL_DAYS.DEFAULT;
+};
+
+const right = (cards: MemoryCard[], id: number) => {
+    const card = cards.find((card) => card.id === id);
+    if (!card) {
+        throw new Error();
+    }
+
+    card.correctCount += 1;
+    card.nextDate = addDays(new Date(), getDaysToAdd(card.correctCount));
+    return { cards: cards };
+};
+
 function reducer(state: IState, action: Action) {
     if (action.cardId) {
         switch (action.type) {
             case 'WRONG':
                 return wrong(state.cards, action.cardId);
+            case 'RIGHT':
+                return right(state.cards, action.cardId);
             default:
                 throw new Error();
         }
@@ -72,7 +99,6 @@ const IndexPage = (): JSX.Element => {
             isPaused: false,
         },
     ];
-    console.log('fan');
 
     const [{ cards }, dispatch] = useReducer(reducer, mockState, init);
 
@@ -82,6 +108,7 @@ const IndexPage = (): JSX.Element => {
         <div>
             <p>{currentCard.id}</p>
             <button onClick={() => dispatch({ type: 'WRONG', cardId: currentCard.id })}>Wrong</button>
+            <button onClick={() => dispatch({ type: 'RIGHT', cardId: currentCard.id })}>Right</button>
         </div>
     ) : (
         <p>Done</p>
