@@ -4,7 +4,7 @@ import { MemoryCard } from '../store/main';
 import { startOfTomorrow, isToday } from 'date-fns';
 // https://www.carlrippon.com/managing-state-in-functional-react-components-with-usereducer/ <- do this later
 
-interface State {
+interface IState {
     cards: MemoryCard[];
 }
 
@@ -20,16 +20,20 @@ function init(initialCards: MemoryCard[]) {
 }
 
 const wrong = (cards: MemoryCard[], id: number) => {
-    const card = cards[id];
+    const card = cards.find((card) => card.id === id);
+    if (!card) {
+        throw new Error();
+    }
+
     card.incorrectCount += 1;
     card.nextDate = startOfTomorrow();
     return { cards: cards };
 };
 
-function reducer(state: State, action: Action) {
+function reducer(state: IState, action: Action) {
     if (action.cardId) {
         switch (action.type) {
-            case 'wrong':
+            case 'WRONG':
                 return wrong(state.cards, action.cardId);
             default:
                 throw new Error();
@@ -68,17 +72,22 @@ const IndexPage = (): JSX.Element => {
             isPaused: false,
         },
     ];
+    console.log('fan');
 
-    const [cards, dispatch] = useReducer(reducer, mockState, init);
+    const [{ cards }, dispatch] = useReducer(reducer, mockState, init);
 
     const currentCard = cards.find((card: MemoryCard) => isToday(card.nextDate));
 
-    return (
-        <Layout>
-            <h1 className="text-blue-200">Hello</h1>
+    const cardView = currentCard ? (
+        <div>
             <p>{currentCard.id}</p>
-        </Layout>
+            <button onClick={() => dispatch({ type: 'WRONG', cardId: currentCard.id })}>Wrong</button>
+        </div>
+    ) : (
+        <p>Done</p>
     );
+
+    return <Layout>{cardView}</Layout>;
 };
 
 export default IndexPage;
