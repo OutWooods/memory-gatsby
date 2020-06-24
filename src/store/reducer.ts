@@ -1,5 +1,6 @@
 import { MemoryCard } from './main';
-import { wrong, right, pause } from '../utils/cards';
+import { wrong, right, pause, practise } from '../utils/cards';
+import { isFuture } from 'date-fns';
 
 interface IState {
     cards: MemoryCard[];
@@ -13,11 +14,28 @@ interface Action {
 }
 
 export interface CardAction {
-    type: string;
+    type: 'WRONG' | 'RIGHT' | 'PAUSE';
     cardId: number;
 }
 
+const hasAttemptedAll = (cards: MemoryCard[]) => {
+    return !!cards.find((card) => !isFuture(card.nextDate));
+};
+
 const cardActionReducer = (cards: MemoryCard[], { type, cardId }: CardAction) => {
+    switch (type) {
+        case 'WRONG':
+            return practise(cards, cardId);
+        case 'RIGHT':
+            return practise(cards, cardId);
+        case 'PAUSE':
+            return practise(cards, cardId);
+        default:
+            throw new Error();
+    }
+};
+
+const secondAttemptReducer = (cards: MemoryCard[], { type, cardId }: CardAction) => {
     switch (type) {
         case 'WRONG':
             return wrong(cards, cardId);
@@ -36,7 +54,9 @@ export const init = (initialCards: MemoryCard[]): IState => {
 
 export const reducer = (state: IState, action: Action): IState => {
     if (action.cardId) {
-        return cardActionReducer(state.cards, action as CardAction);
+        return hasAttemptedAll(state.cards)
+            ? secondAttemptReducer(state.cards, action as CardAction)
+            : cardActionReducer(state.cards, action as CardAction);
     }
 
     if (action.payload) {

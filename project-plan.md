@@ -1,10 +1,12 @@
 ## Refactoring work
 
-[] Extract single card view to separate component
+[x] Extract single card view to separate component
 
 [] Add unit tests for the 3 reducers
 
-[] Extract the reducers to separate files
+[x] Extract the reducers to separate files
+
+[] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
 
 ## Features
 
