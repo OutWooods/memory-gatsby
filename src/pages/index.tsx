@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import Layout from '../components/layout';
 import { MemoryCard } from '../store/main';
 import Card from '../components/card';
-import { isToday, differenceInHours } from 'date-fns';
 import { reducer, CardAction, init } from '../store/reducer';
+import { showForPractise, showToday } from '../utils/cardRules';
 
 const mockState: MemoryCard[] = [
     {
@@ -12,7 +12,7 @@ const mockState: MemoryCard[] = [
         incorrectCount: 0,
         nextDate: new Date(),
         isPaused: false,
-        secondAttempt: false,
+        secondAttempt: undefined,
         lastAttempt: new Date(),
     },
     {
@@ -21,7 +21,7 @@ const mockState: MemoryCard[] = [
         incorrectCount: 0,
         nextDate: new Date(),
         isPaused: true,
-        secondAttempt: false,
+        secondAttempt: undefined,
         lastAttempt: new Date(),
     },
     {
@@ -30,7 +30,7 @@ const mockState: MemoryCard[] = [
         incorrectCount: 0,
         nextDate: new Date(),
         isPaused: false,
-        secondAttempt: false,
+        secondAttempt: undefined,
         lastAttempt: new Date(),
     },
 ];
@@ -46,9 +46,9 @@ const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) =>
 );
 
 const IndexPage = (): JSX.Element => {
-    const [{ cards }, dispatch] = useReducer(reducer, mockState, init);
+    const [{ cards, showWrong }, dispatch] = useReducer(reducer, mockState, init);
 
-    const currentCard = cards.find((card: MemoryCard) => isToday(card.nextDate) && !card.isPaused);
+    const currentCard = cards.find((card) => showToday(card));
     if (currentCard) {
         return <Layout>{cardConstructor(currentCard, dispatch)}</Layout>;
     }
@@ -63,15 +63,17 @@ const IndexPage = (): JSX.Element => {
         );
     }
 
-    const wrongCards = cards.filter(
-        (card: MemoryCard) =>
-            card.correctCount <= 0 && !card.secondAttempt && differenceInHours(card.lastAttempt, new Date()) > 2,
-    );
-    if (wrongCards.length !== 0) {
+    const practiseCards = cards.filter((card) => showForPractise(card));
+    if (practiseCards.length === 0 && showWrong) {
+        dispatch({ type: 'HIDE_WRONG' });
+    }
+
+    if (showWrong) {
         return (
             <Layout>
                 <p>Practise</p>
-                {wrongCards.map((card) => cardConstructor(card, dispatch, false))}
+                {practiseCards.map((card) => cardConstructor(card, dispatch, false))}
+                <button onClick={() => dispatch({ type: 'HIDE_WRONG' })}>Hide wrong cards</button>
             </Layout>
         );
     }
@@ -79,6 +81,9 @@ const IndexPage = (): JSX.Element => {
     return (
         <Layout>
             <p>Done</p>
+            {practiseCards.length !== 0 && (
+                <button onClick={() => dispatch({ type: 'SHOW_WRONG' })}>Practise wrong cards</button>
+            )}
         </Layout>
     );
 };

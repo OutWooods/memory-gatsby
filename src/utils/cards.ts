@@ -1,17 +1,9 @@
 import { MemoryCard } from '../store/main';
 import { startOfTomorrow, addDays } from 'date-fns';
+import { ADDITIONAL_DAYS } from './cardRules';
 
 export interface CardsUpdate {
     cards: MemoryCard[];
-}
-
-enum ADDITIONAL_DAYS {
-    DAY_1 = 1,
-    DAY_2 = 3,
-    DAY_3 = 5,
-    DAY_4 = 7,
-    DAY_5 = 30,
-    DEFAULT = 90,
 }
 
 const getDaysToAdd = (value: number): number => {
@@ -63,6 +55,6 @@ export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
         throw new Error();
     }
 
-    card.secondAttempt = true;
+    card.secondAttempt = new Date();
     return { cards: cards };
 };

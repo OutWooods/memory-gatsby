@@ -4,8 +4,8 @@ export interface MemoryCard {
     incorrectCount: number;
     nextDate: Date;
     isPaused: boolean;
-    secondAttempt: boolean;
-    lastAttempt: Date;
+    secondAttempt: Date | undefined;
+    lastAttempt: Date | undefined;
 }
 
 export const getCards = (): MemoryCard[] => JSON.parse(localStorage.getItem('memory-cards') || '') || [];

@@ -8,9 +8,13 @@
 
 [] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
 
+[] Move some key definitions to separate files and add tests to those
+
+[] Setup jest (or look at what gatsby does for testing)
+
 ## Features
 
-[] Mark as wrong
+[x] Mark as wrong
 
    [x] Sets next day tomorrow
 
@@ -18,9 +22,7 @@
 
    [x] Should it be a chain of incorrect? Or incorrect events?
 
-   [] Gives you an option to re-review wrong cards
-
-[] Mark as right
+[x] Mark as right
 
    [x] Sets next day based on formula
 
@@ -28,11 +30,27 @@
 
    [x] Sets incorrectCount to 0
 
-[] Mark as paused
+   [x] Mark last attempted at as today
 
-   [] sets paused to true
+[x] Mark as paused
 
-   [] doesnt change anything else
+   [x] sets paused to true
+
+   [x] doesnt change anything else
+
+[x] Gives you an option to re-review wrong cards
+
+   [x] Store method that decides if cards are done in state
+
+   [x] Rename re-review to practise
+
+   [x] Once you've practised once, the cards go away for the day
+
+   [x] Practising changes nothing about the cycle
+
+   [x] Wrong cards only appear 2 hours after getting them wrong
+
+   [x] secondAttempt clears on the next day
 
 [] Add new cards
 
@@ -57,6 +75,14 @@
    [] What each part means
 
    [] Routing to pages
+
+[] If someone gets something wrong multiple times in a row - e.g. 3 times, suggest doing a hint
+
+[] Add choice between adding new cards and practising wrong ones
+
+[] Quickly input old cards
+
+[] Add a graphing library to show data on cards
 
 ## Questions
 

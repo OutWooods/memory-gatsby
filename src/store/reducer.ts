@@ -4,6 +4,7 @@ import { isFuture } from 'date-fns';
 
 interface IState {
     cards: MemoryCard[];
+    showWrong: boolean;
 }
 
 interface Action {
@@ -48,15 +49,23 @@ const secondAttemptReducer = (cards: MemoryCard[], { type, cardId }: CardAction)
     }
 };
 
+const showWrongReducer = (type: string) => ({ showWrong: type === 'SHOW_WRONG' });
+
 export const init = (initialCards: MemoryCard[]): IState => {
-    return { cards: initialCards };
+    return { cards: initialCards, showWrong: false };
 };
 
 export const reducer = (state: IState, action: Action): IState => {
     if (action.cardId) {
-        return hasAttemptedAll(state.cards)
+        const { cards } = hasAttemptedAll(state.cards)
             ? secondAttemptReducer(state.cards, action as CardAction)
             : cardActionReducer(state.cards, action as CardAction);
+
+        return { ...state, cards };
+    }
+
+    if (action.type === 'SHOW_WRONG' || action.type === 'HIDE_WRONG') {
+        return { ...state, ...showWrongReducer(action.type) };
     }
 
     if (action.payload) {
