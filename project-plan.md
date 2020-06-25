@@ -12,6 +12,12 @@
 
 [] Setup jest (or look at what gatsby does for testing)
 
+[] Extract actions out into enums
+
+[] Improve index page logic
+
+[] Is there any ways of using Gatsby Better?
+
 ## Features
 
 [x] Mark as wrong
@@ -62,13 +68,23 @@
 
    [] Only shows once you've completed your daily review (including paused cards)
 
-   [] Limits you to 10 cards for tomorrow total
+   [] Limits to 10 new cards a day
+
+[] Tells you how many cards you currently have for tomorrow (if you try to add when there's more than 10, it'll warn you)
+
+[] Add choice between adding new cards and practising wrong ones
 
 [] Store card data in local storage
 
    [] On load, get data from storage
 
    [] On dismount, store data
+
+[] Quickly input old cards
+
+-- Alpha Trial
+
+[] Add a graphing library to show data on cards
 
 [] Write brief guide to site
 
@@ -78,11 +94,11 @@
 
 [] If someone gets something wrong multiple times in a row - e.g. 3 times, suggest doing a hint
 
-[] Add choice between adding new cards and practising wrong ones
+[] Can always just check wrong cards
 
-[] Quickly input old cards
+[] Max new cards is toggabled, after a few days
 
-[] Add a graphing library to show data on cards
+[] Max cards in a day is toggable after a few days
 
 ## Questions
 
@@ -107,7 +123,7 @@
 -- Algorithm
 
 Wrong - Show tomorrow
-Right - 1 day, 3 days, 5 days, 7 days, 1 month, 3 months
+Right - 2 day, 3 days, 5 days, 7 days, 1 month, 3 months
 
 Add new card - only if 15 or lower are happening tomorrow
 Show count of remaining cards
