@@ -14,11 +14,13 @@
 
 [x] Extract actions out into enums
 
-[] Improve index page logic
+[] Improve index page logic (break to separate pages)
 
 [] Is there any ways of using Gatsby Better?
 
 [] Find more efficient way to store in local storage
+
+[] Go back to main project and update gatsby
 
 ## Features
 
@@ -60,7 +62,7 @@
 
    [x] secondAttempt clears on the next day
 
-[] Add new cards
+[] Add new cards (page created)
 
    [] Id is plus one to the length
 
@@ -76,7 +78,7 @@
 
 [x] Tells you how many cards you currently have for tomorrow
 
-[] Add choice between adding new cards and practising wrong ones
+[x] Add choice between adding new cards and practising wrong ones
 
 [x] Store card data in local storage
 
@@ -84,7 +86,9 @@
 
    [x] On update, store data
 
-[] Quickly input old cards
+[] Quickly input old cards (test this data is separate between prod and local)
+
+[] Add better url for site
 
 -- Alpha Trial
 

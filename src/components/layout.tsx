@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Link } from 'gatsby';
+import ListLink from './listLink';
 
-const ListLink = (props) => (
-    <li style={{ display: `inline-block`, marginRight: `1rem` }}>
-        <Link to={props.to}>{props.children}</Link>
-    </li>
-);
+export interface LayoutProps {
+    children: ReactNode;
+}
 
-export default function Layout({ children }) {
+export default function Layout({ children }: LayoutProps): JSX.Element {
     return (
         <div style={{ margin: `3rem auto`, maxWidth: 650, padding: `0 1rem` }}>
             <header style={{ marginBottom: `1.5rem` }}>

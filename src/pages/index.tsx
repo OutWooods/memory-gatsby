@@ -6,6 +6,7 @@ import { reducer, CardAction, init } from '../store/reducer';
 import { showForPractise, showToday } from '../utils/cardRules';
 import { CARD_ACTION, WRONG_VISIBILITY } from '../store/actions';
 import { isTomorrow } from 'date-fns';
+import ListLink from '../components/listLink';
 
 const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void, showPause = true) => (
     <Card
@@ -56,6 +57,7 @@ const IndexPage = (): JSX.Element => {
     return (
         <Layout>
             <p>Done</p>
+            <ListLink to="/new">Add cards</ListLink>
             <p>Tomorrow you have {tomorrowsCards} to do</p>
             {practiseCards.length !== 0 && (
                 <button onClick={() => dispatch({ type: WRONG_VISIBILITY.SHOW })}>Practise wrong cards</button>
