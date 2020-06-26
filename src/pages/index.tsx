@@ -1,40 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Layout from '../components/layout';
-import { MemoryCard } from '../store/main';
+import { MemoryCard, setCards } from '../store/main';
 import Card from '../components/card';
 import { reducer, CardAction, init } from '../store/reducer';
 import { showForPractise, showToday } from '../utils/cardRules';
 import { CARD_ACTION, WRONG_VISIBILITY } from '../store/actions';
-
-const mockState: MemoryCard[] = [
-    {
-        id: 1,
-        correctCount: 1,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: false,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-    {
-        id: 2,
-        correctCount: 0,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: true,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-    {
-        id: 3,
-        correctCount: 0,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: false,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-];
+import { isTomorrow } from 'date-fns';
 
 const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void, showPause = true) => (
     <Card
@@ -47,7 +18,9 @@ const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) =>
 );
 
 const IndexPage = (): JSX.Element => {
-    const [{ cards, showWrong }, dispatch] = useReducer(reducer, mockState, init);
+    const [{ cards, showWrong }, dispatch] = useReducer(reducer, {}, init);
+    // TODO find a more performant way to do this
+    useEffect(() => setCards(cards));
 
     const currentCard = cards.find((card) => showToday(card));
     if (currentCard) {
@@ -79,9 +52,11 @@ const IndexPage = (): JSX.Element => {
         );
     }
 
+    const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
     return (
         <Layout>
             <p>Done</p>
+            <p>Tomorrow you have {tomorrowsCards} to do</p>
             {practiseCards.length !== 0 && (
                 <button onClick={() => dispatch({ type: WRONG_VISIBILITY.SHOW })}>Practise wrong cards</button>
             )}

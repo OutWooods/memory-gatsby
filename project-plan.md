@@ -18,6 +18,8 @@
 
 [] Is there any ways of using Gatsby Better?
 
+[] Find more efficient way to store in local storage
+
 ## Features
 
 [x] Mark as wrong
@@ -70,15 +72,17 @@
 
    [] Limits to 10 new cards a day
 
-[] Tells you how many cards you currently have for tomorrow (if you try to add when there's more than 10, it'll warn you)
+   [] (if you try to add when there's more than 10, it'll warn you)
+
+[x] Tells you how many cards you currently have for tomorrow
 
 [] Add choice between adding new cards and practising wrong ones
 
-[] Store card data in local storage
+[x] Store card data in local storage
 
-   [] On load, get data from storage
+   [x] On load, get data from storage
 
-   [] On dismount, store data
+   [x] On update, store data
 
 [] Quickly input old cards
 
