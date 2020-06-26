@@ -12,7 +12,7 @@
 
 [] Setup jest (or look at what gatsby does for testing)
 
-[] Extract actions out into enums
+[x] Extract actions out into enums
 
 [] Improve index page logic
 

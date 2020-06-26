@@ -4,6 +4,7 @@ import { MemoryCard } from '../store/main';
 import Card from '../components/card';
 import { reducer, CardAction, init } from '../store/reducer';
 import { showForPractise, showToday } from '../utils/cardRules';
+import { CARD_ACTION, WRONG_VISIBILITY } from '../store/actions';
 
 const mockState: MemoryCard[] = [
     {
@@ -39,9 +40,9 @@ const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) =>
     <Card
         key={card.id}
         card={card}
-        wrong={(id: number) => dispatch({ type: 'WRONG', cardId: id })}
-        right={(id: number) => dispatch({ type: 'RIGHT', cardId: id })}
-        pause={showPause ? (id: number) => dispatch({ type: 'PAUSE', cardId: id }) : undefined}
+        wrong={(id: number) => dispatch({ type: CARD_ACTION.WRONG, cardId: id })}
+        right={(id: number) => dispatch({ type: CARD_ACTION.RIGHT, cardId: id })}
+        pause={showPause ? (id: number) => dispatch({ type: CARD_ACTION.PAUSE, cardId: id }) : undefined}
     ></Card>
 );
 
@@ -65,7 +66,7 @@ const IndexPage = (): JSX.Element => {
 
     const practiseCards = cards.filter((card) => showForPractise(card));
     if (practiseCards.length === 0 && showWrong) {
-        dispatch({ type: 'HIDE_WRONG' });
+        dispatch({ type: WRONG_VISIBILITY.HIDE });
     }
 
     if (showWrong) {
@@ -73,7 +74,7 @@ const IndexPage = (): JSX.Element => {
             <Layout>
                 <p>Practise</p>
                 {practiseCards.map((card) => cardConstructor(card, dispatch, false))}
-                <button onClick={() => dispatch({ type: 'HIDE_WRONG' })}>Hide wrong cards</button>
+                <button onClick={() => dispatch({ type: WRONG_VISIBILITY.HIDE })}>Hide wrong cards</button>
             </Layout>
         );
     }
@@ -82,7 +83,7 @@ const IndexPage = (): JSX.Element => {
         <Layout>
             <p>Done</p>
             {practiseCards.length !== 0 && (
-                <button onClick={() => dispatch({ type: 'SHOW_WRONG' })}>Practise wrong cards</button>
+                <button onClick={() => dispatch({ type: WRONG_VISIBILITY.SHOW })}>Practise wrong cards</button>
             )}
         </Layout>
     );
