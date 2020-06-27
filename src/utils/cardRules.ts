@@ -15,6 +15,7 @@ export enum ADDITIONAL_DAYS {
 
 export enum MAX_CARDS {
     NEW = 10,
+    TOTAL = 10,
 }
 
 export const showForPractise = (card: MemoryCard): boolean => {

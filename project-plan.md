@@ -72,9 +72,9 @@
 
    [x] Only shows once you've completed your daily review (including paused cards)
 
-   [] Limits to 10 new cards a day
+   [x] Limits to 10 new cards a day
 
-   [] (if you try to add when there's more than 10, it'll warn you)
+   [x] (if you try to add when there's more than 10 in total tomorrow, it'll warn you)
 
 [x] Tells you how many cards you currently have for tomorrow
 
@@ -86,7 +86,11 @@
 
    [x] On update, store data
 
-[] Quickly input old cards (test this data is separate between prod and local)
+[] Quickly input old cards
+
+[x] (test this data is separate between prod and local)
+
+[] check for bugs
 
 [] Add better url for site
 

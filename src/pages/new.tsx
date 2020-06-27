@@ -16,7 +16,10 @@ const IndexPage = (): JSX.Element => {
     return (
         <Layout>
             <p>Add cards</p>
-            <p>Tomorrow you have {tomorrowsCards} to do</p>
+            <p className={tomorrowsCards >= MAX_CARDS.TOTAL ? 'text-red-400' : ''}>
+                Tomorrow you have {tomorrowsCards} to do{' '}
+                {tomorrowsCards >= MAX_CARDS.TOTAL && 'probably dont add too many new ones'}
+            </p>
             {newCards !== 0 && (
                 <p>
                     You have added {newCards} today ({MAX_CARDS.NEW} is the max)
