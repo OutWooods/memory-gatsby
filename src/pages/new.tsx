@@ -3,9 +3,10 @@ import Layout from '../components/layout';
 import { setCards } from '../store/main';
 import { reducer, init } from '../store/reducer';
 import { isTomorrow } from 'date-fns';
+import { CARD_ACTION } from '../store/actions';
 
 const IndexPage = (): JSX.Element => {
-    const [{ cards }] = useReducer(reducer, {}, init);
+    const [{ cards }, dispatch] = useReducer(reducer, {}, init);
     // TODO find a more performant way to do this
     useEffect(() => setCards(cards));
 
@@ -14,6 +15,7 @@ const IndexPage = (): JSX.Element => {
         <Layout>
             <p>Add cards</p>
             <p>Tomorrow you have {tomorrowsCards} to do</p>
+            <button onClick={() => dispatch({ type: CARD_ACTION.ADD })}> Hey</button>
         </Layout>
     );
 };

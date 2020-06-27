@@ -1,5 +1,5 @@
 import { MemoryCard } from '../store/main';
-import { differenceInHours, isToday } from 'date-fns';
+import { differenceInHours, isToday, isBefore, endOfToday } from 'date-fns';
 
 const COOLDOWN_LENGTH = 2;
 
@@ -24,4 +24,5 @@ export const showForPractise = (card: MemoryCard): boolean => {
     );
 };
 
-export const showToday = (card: MemoryCard): boolean => isToday(card.nextDate) && !card.isPaused;
+export const showToday = (card: MemoryCard): boolean =>
+    isBefore(card.nextDate, endOfToday()) && (!card.isPaused || !isToday(card.isPaused));

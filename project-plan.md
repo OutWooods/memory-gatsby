@@ -64,13 +64,13 @@
 
 [] Add new cards (page created)
 
-   [] Id is plus one to the length
+   [x] Id is plus one to the length
 
-   [] correct and incorrect are set to 0
+   [x] correct and incorrect are set to 0
 
    [] can review today
 
-   [] Only shows once you've completed your daily review (including paused cards)
+   [x] Only shows once you've completed your daily review (including paused cards)
 
    [] Limits to 10 new cards a day
 

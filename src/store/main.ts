@@ -3,7 +3,7 @@ export interface MemoryCard {
     correctCount: number;
     incorrectCount: number;
     nextDate: Date;
-    isPaused: boolean;
+    isPaused: Date | undefined;
     secondAttempt: Date | undefined;
     lastAttempt: Date | undefined;
 }
@@ -13,7 +13,7 @@ const mockState: MemoryCard[] = [
         correctCount: 1,
         incorrectCount: 0,
         nextDate: new Date(),
-        isPaused: false,
+        isPaused: undefined,
         secondAttempt: undefined,
         lastAttempt: new Date(),
     },
@@ -22,7 +22,7 @@ const mockState: MemoryCard[] = [
         correctCount: 0,
         incorrectCount: 0,
         nextDate: new Date(),
-        isPaused: true,
+        isPaused: undefined,
         secondAttempt: undefined,
         lastAttempt: new Date(),
     },
@@ -31,7 +31,7 @@ const mockState: MemoryCard[] = [
         correctCount: 0,
         incorrectCount: 0,
         nextDate: new Date(),
-        isPaused: false,
+        isPaused: undefined,
         secondAttempt: undefined,
         lastAttempt: new Date(),
     },
@@ -40,7 +40,13 @@ const mockState: MemoryCard[] = [
 export const getCards = (): MemoryCard[] => {
     const memoryCards = localStorage.getItem('memory-cards');
     if (memoryCards) {
-        return JSON.parse(memoryCards);
+        return JSON.parse(memoryCards).map((card: MemoryCard) => {
+            card.nextDate = new Date(card.nextDate);
+            card.isPaused = card.isPaused ? new Date(card.isPaused) : undefined;
+            card.secondAttempt = card.secondAttempt ? new Date(card.secondAttempt) : undefined;
+            card.lastAttempt = card.lastAttempt ? new Date(card.lastAttempt) : undefined;
+            return card;
+        });
     }
 
     return mockState;

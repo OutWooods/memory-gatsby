@@ -1,5 +1,5 @@
 import { MemoryCard, getCards } from './main';
-import { wrong, right, pause, practise } from '../utils/cards';
+import { wrong, right, pause, practise, addCard } from '../utils/cards';
 import { isFuture } from 'date-fns';
 import { WRONG_VISIBILITY, CARD_ACTION, DEFAULT_ACTION } from './actions';
 
@@ -63,6 +63,10 @@ export const reducer = (state: IState, action: Action): IState => {
             : cardActionReducer(state.cards, action as CardAction);
 
         return { ...state, cards };
+    }
+
+    if (action.type === CARD_ACTION.ADD) {
+        return { ...state, ...addCard(state.cards) };
     }
 
     if (action.type === WRONG_VISIBILITY.SHOW || action.type == WRONG_VISIBILITY.HIDE) {

@@ -19,7 +19,7 @@ export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
 
     card.incorrectCount += 1;
     card.correctCount = 0;
-    card.isPaused = false;
+    card.isPaused = undefined;
     card.nextDate = startOfTomorrow();
     card.lastAttempt = new Date();
     return { cards: cards };
@@ -33,7 +33,7 @@ export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
 
     card.correctCount += 1;
     card.incorrectCount = 0;
-    card.isPaused = false;
+    card.isPaused = undefined;
     card.lastAttempt = new Date();
     card.nextDate = addDays(new Date(), getDaysToAdd(card.correctCount));
     return { cards: cards };
@@ -45,7 +45,7 @@ export const pause = (cards: MemoryCard[], id: number): CardsUpdate => {
         throw new Error();
     }
 
-    card.isPaused = true;
+    card.isPaused = new Date();
     return { cards: cards };
 };
 
@@ -56,5 +56,19 @@ export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
     }
 
     card.secondAttempt = new Date();
+    return { cards: cards };
+};
+
+export const addCard = (cards: MemoryCard[]): CardsUpdate => {
+    cards.push({
+        id: cards.length,
+        correctCount: 0,
+        incorrectCount: 0,
+        nextDate: startOfTomorrow(),
+        isPaused: undefined,
+        secondAttempt: undefined,
+        lastAttempt: undefined,
+    });
+
     return { cards: cards };
 };

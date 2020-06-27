@@ -12,4 +12,4 @@
 
 [] Add format checks to builds
 
-[] rename me to main (not master)
+[x] rename me to main (not master)
