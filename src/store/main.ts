@@ -1,5 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare let localStorage: any;
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+
+const localStorageHolder = typeof localStorage !== 'undefined' && localStorage;
 
 export interface MemoryCard {
     id: number;
@@ -50,7 +51,11 @@ const mockState: MemoryCard[] = [
 ];
 
 export const getCards = (): MemoryCard[] => {
-    const memoryCards = localStorage.getItem('memory-cards');
+    if (!localStorageHolder) {
+        return mockState;
+    }
+
+    const memoryCards = localStorageHolder.getItem('memory-cards');
     if (memoryCards) {
         return JSON.parse(memoryCards).map((card: MemoryCard) => {
             card.nextDate = new Date(card.nextDate);
@@ -65,4 +70,4 @@ export const getCards = (): MemoryCard[] => {
 };
 
 export const setCards = (memoryCards: MemoryCard[]): void =>
-    localStorage.setItem('memory-cards', JSON.stringify(memoryCards));
+    localStorageHolder ? localStorageHolder.setItem('memory-cards', JSON.stringify(memoryCards)) : undefined;
