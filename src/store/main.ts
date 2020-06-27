@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare let localStorage: any;
+
 export interface MemoryCard {
     id: number;
     correctCount: number;
@@ -28,6 +31,15 @@ const mockState: MemoryCard[] = [
     },
     {
         id: 3,
+        correctCount: 0,
+        incorrectCount: 0,
+        nextDate: new Date(),
+        isPaused: undefined,
+        secondAttempt: undefined,
+        lastAttempt: new Date(),
+    },
+    {
+        id: 4,
         correctCount: 0,
         incorrectCount: 0,
         nextDate: new Date(),
