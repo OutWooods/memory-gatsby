@@ -94,9 +94,15 @@
 
 [] Add better url for site
 
+Now do all the refactoring and testing
+
 -- Alpha Trial
 
 [] Add a graphing library to show data on cards
+
+[] Show current card plan for week (and following months)
+
+[] Set one big review day (or choices of algorithm)
 
 [] Write brief guide to site
 
