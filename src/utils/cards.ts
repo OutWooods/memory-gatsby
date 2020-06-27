@@ -1,14 +1,15 @@
 import { MemoryCard } from '../store/main';
-import { startOfTomorrow, addDays } from 'date-fns';
+import { startOfTomorrow } from 'date-fns';
 import { ADDITIONAL_DAYS } from './cardRules';
 
 export interface CardsUpdate {
     cards: MemoryCard[];
 }
 
-const getDaysToAdd = (value: number): number => {
-    const name = `DAY_${value}`;
-    return ADDITIONAL_DAYS[name as keyof typeof ADDITIONAL_DAYS] || ADDITIONAL_DAYS.DEFAULT;
+const daysToAdd = (count: number): Date => {
+    const additionalDays = ADDITIONAL_DAYS[count];
+
+    return additionalDays ? additionalDays() : ADDITIONAL_DAYS.DEFAULT();
 };
 
 export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
@@ -32,10 +33,11 @@ export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
     }
 
     card.correctCount += 1;
+
     card.incorrectCount = 0;
     card.isPaused = undefined;
     card.lastAttempt = new Date();
-    card.nextDate = addDays(new Date(), getDaysToAdd(card.correctCount));
+    card.nextDate = daysToAdd(card.correctCount);
     return { cards: cards };
 };
 
