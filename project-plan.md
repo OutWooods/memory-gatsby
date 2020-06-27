@@ -88,9 +88,9 @@
 
 [x] (test this data is separate between prod and local)
 
-[] Quickly input old cards
+[x] Quickly input old cards
 
-[] check for bugs
+[x] check for bugs
 
 [] Add better url for site
 

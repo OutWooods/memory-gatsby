@@ -25,9 +25,14 @@ const IndexPage = (): JSX.Element => {
     useEffect(() => setCards(cards));
     defaultData();
 
-    const currentCard = cards.find((card) => showToday(card));
-    if (currentCard) {
-        return <Layout>{cardConstructor(currentCard, dispatch)}</Layout>;
+    const todaysCards = cards.filter((card) => showToday(card));
+    if (todaysCards.length === 1) {
+        return (
+            <Layout>
+                <p>Cards you need today are: {todaysCards.map((card) => card.id).join(' ')}</p>
+                {cardConstructor(todaysCards[1], dispatch)}
+            </Layout>
+        );
     }
 
     const pausedCards = cards.filter((card: MemoryCard) => card.isPaused);
