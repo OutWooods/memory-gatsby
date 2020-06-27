@@ -4,6 +4,7 @@ import { setCards } from '../store/main';
 import { reducer, init } from '../store/reducer';
 import { isTomorrow } from 'date-fns';
 import { CARD_ACTION } from '../store/actions';
+import { MAX_CARDS } from '../utils/cardRules';
 
 const IndexPage = (): JSX.Element => {
     const [{ cards }, dispatch] = useReducer(reducer, {}, init);
@@ -11,11 +12,24 @@ const IndexPage = (): JSX.Element => {
     useEffect(() => setCards(cards));
 
     const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
+    const newCards = cards.filter((card) => !card.lastAttempt).length;
     return (
         <Layout>
             <p>Add cards</p>
             <p>Tomorrow you have {tomorrowsCards} to do</p>
-            <button onClick={() => dispatch({ type: CARD_ACTION.ADD })}> Hey</button>
+            {newCards !== 0 && (
+                <p>
+                    You have added {newCards} today ({MAX_CARDS.NEW} is the max)
+                </p>
+            )}
+            {newCards < MAX_CARDS.NEW ? (
+                <div>
+                    <p>Next card number will be {cards.length + 1}</p>
+                    <button onClick={() => dispatch({ type: CARD_ACTION.ADD })}>Add Card</button>
+                </div>
+            ) : (
+                <p>Max cards for day added</p>
+            )}
         </Layout>
     );
 };

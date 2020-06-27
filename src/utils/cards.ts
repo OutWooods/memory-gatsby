@@ -61,7 +61,7 @@ export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
 
 export const addCard = (cards: MemoryCard[]): CardsUpdate => {
     cards.push({
-        id: cards.length,
+        id: cards.length + 1,
         correctCount: 0,
         incorrectCount: 0,
         nextDate: startOfTomorrow(),

@@ -13,6 +13,10 @@ export enum ADDITIONAL_DAYS {
     DEFAULT = 90,
 }
 
+export enum MAX_CARDS {
+    NEW = 10,
+}
+
 export const showForPractise = (card: MemoryCard): boolean => {
     if (!card.lastAttempt || card.correctCount > 0) {
         return false;
