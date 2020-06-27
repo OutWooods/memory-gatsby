@@ -11,3 +11,5 @@
 [x] Get auto save formatting for vscode
 
 [] Add format checks to builds
+
+[] rename me to main (not master)
