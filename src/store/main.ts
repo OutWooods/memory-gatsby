@@ -1,4 +1,4 @@
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+import defaultData from './defaultData';
 
 const localStorageHolder = typeof localStorage !== 'undefined' && localStorage;
 
@@ -52,7 +52,7 @@ const mockState: MemoryCard[] = [
 
 export const getCards = (): MemoryCard[] => {
     if (!localStorageHolder) {
-        return mockState;
+        return defaultData();
     }
 
     const memoryCards = localStorageHolder.getItem('memory-cards');
@@ -66,7 +66,7 @@ export const getCards = (): MemoryCard[] => {
         });
     }
 
-    return mockState;
+    return defaultData();
 };
 
 export const setCards = (memoryCards: MemoryCard[]): void =>

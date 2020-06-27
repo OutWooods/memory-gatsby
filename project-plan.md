@@ -24,6 +24,8 @@
 
 ## Features
 
+[] Show card numbers you need for today before quiz
+
 [x] Mark as wrong
 
    [x] Sets next day tomorrow
@@ -62,13 +64,11 @@
 
    [x] secondAttempt clears on the next day
 
-[] Add new cards (page created)
+[x] Add new cards (page created)
 
    [x] Id is plus one to the length
 
    [x] correct and incorrect are set to 0
-
-   [] can review today
 
    [x] Only shows once you've completed your daily review (including paused cards)
 
@@ -86,9 +86,9 @@
 
    [x] On update, store data
 
-[] Quickly input old cards
-
 [x] (test this data is separate between prod and local)
+
+[] Quickly input old cards
 
 [] check for bugs
 

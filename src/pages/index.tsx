@@ -7,6 +7,7 @@ import { showForPractise, showToday } from '../utils/cardRules';
 import { CARD_ACTION, WRONG_VISIBILITY } from '../store/actions';
 import { isTomorrow } from 'date-fns';
 import ListLink from '../components/listLink';
+import defaultData from '../store/defaultData';
 
 const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void, showPause = true) => (
     <Card
@@ -22,6 +23,7 @@ const IndexPage = (): JSX.Element => {
     const [{ cards, showWrong }, dispatch] = useReducer(reducer, {}, init);
     // TODO find a more performant way to do this
     useEffect(() => setCards(cards));
+    defaultData();
 
     const currentCard = cards.find((card) => showToday(card));
     if (currentCard) {
