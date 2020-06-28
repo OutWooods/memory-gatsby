@@ -26,7 +26,7 @@ const IndexPage = (): JSX.Element => {
     defaultData();
 
     const todaysCards = cards.filter((card) => showToday(card));
-    if (todaysCards.length === 1) {
+    if (todaysCards.length !== 0) {
         return (
             <Layout>
                 <p>Cards you need today are: {todaysCards.map((card) => card.id).join(' ')}</p>
