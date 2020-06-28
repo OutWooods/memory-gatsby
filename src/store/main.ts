@@ -11,44 +11,6 @@ export interface MemoryCard {
     secondAttempt: Date | undefined;
     lastAttempt: Date | undefined;
 }
-const mockState: MemoryCard[] = [
-    {
-        id: 1,
-        correctCount: 1,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: undefined,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-    {
-        id: 2,
-        correctCount: 0,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: undefined,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-    {
-        id: 3,
-        correctCount: 0,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: undefined,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-    {
-        id: 4,
-        correctCount: 0,
-        incorrectCount: 0,
-        nextDate: new Date(),
-        isPaused: undefined,
-        secondAttempt: undefined,
-        lastAttempt: new Date(),
-    },
-];
 
 export const getCards = (): MemoryCard[] => {
     if (!localStorageHolder) {
