@@ -7,8 +7,10 @@ export interface CardsUpdate {
 }
 
 const daysToAdd = (count: number): Date => {
-    const additionalDays = ADDITIONAL_DAYS[count];
-
+    const additionalDays = ADDITIONAL_DAYS[count + ''];
+    if (additionalDays) {
+        console.log(additionalDays());
+    }
     return additionalDays ? additionalDays() : ADDITIONAL_DAYS.DEFAULT();
 };
 
@@ -31,9 +33,9 @@ export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
     if (!card) {
         throw new Error();
     }
+    console.log(card);
 
     card.correctCount += 1;
-
     card.incorrectCount = 0;
     card.isPaused = undefined;
     card.lastAttempt = new Date();
