@@ -92,9 +92,11 @@
 
 [x] check for bugs
 
+[] Better format for message of cards tomorow (and give the numbers)
+
 [] Add better url for site
 
-Now do all the refactoring and testing
+Now do all the refactoring and testing - ESP TESTING
 
 -- Alpha Trial
 
