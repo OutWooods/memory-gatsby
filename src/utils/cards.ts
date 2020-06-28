@@ -15,6 +15,7 @@ const daysToAdd = (count: number): Date => {
 };
 
 export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
+    console.log('called');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
@@ -29,6 +30,7 @@ export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
 };
 
 export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
+    console.log('right');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
@@ -54,6 +56,7 @@ export const pause = (cards: MemoryCard[], id: number): CardsUpdate => {
 };
 
 export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
+    console.log('practise');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
