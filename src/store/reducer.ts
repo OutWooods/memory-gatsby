@@ -1,6 +1,6 @@
 import { MemoryCard, getCards } from './main';
 import { wrong, right, pause, practise, addCard } from '../utils/cards';
-import { isFuture } from 'date-fns';
+import { isBefore, endOfToday } from 'date-fns';
 import { WRONG_VISIBILITY, CARD_ACTION, DEFAULT_ACTION } from './actions';
 
 interface IState {
@@ -21,7 +21,7 @@ export interface CardAction {
 }
 
 const hasAttemptedAll = (cards: MemoryCard[]) => {
-    return !!cards.find((card) => !isFuture(card.nextDate));
+    return !!cards.find((card) => isBefore(card.nextDate, endOfToday()));
 };
 
 const cardActionReducer = (cards: MemoryCard[], { type, cardId }: CardAction) => {
