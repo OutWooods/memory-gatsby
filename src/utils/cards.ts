@@ -8,40 +8,43 @@ export interface CardsUpdate {
 
 const daysToAdd = (count: number): Date => {
     const additionalDays = ADDITIONAL_DAYS[count + ''];
-    if (additionalDays) {
-        console.log(additionalDays());
-    }
+
     return additionalDays ? additionalDays() : ADDITIONAL_DAYS.DEFAULT();
 };
 
+const updateCard = (card: MemoryCard, correct: boolean, nextDate: Date) => {
+    if (correct) {
+        card.incorrectCount = 0;
+        card.correctCount += 1;
+    } else {
+        card.incorrectCount += 1;
+        card.correctCount = 0;
+    }
+
+    card.nextDate = nextDate;
+    card.isPaused = undefined;
+    card.lastAttempt = new Date();
+};
+
 export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
-    console.log('called');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
     }
 
-    card.incorrectCount += 1;
-    card.correctCount = 0;
-    card.isPaused = undefined;
-    card.nextDate = startOfTomorrow();
-    card.lastAttempt = new Date();
+    updateCard(card, false, ADDITIONAL_DAYS.WRONG());
+
     return { cards: cards };
 };
 
 export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
-    console.log('right');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
     }
-    console.log(card);
 
-    card.correctCount += 1;
-    card.incorrectCount = 0;
-    card.isPaused = undefined;
-    card.lastAttempt = new Date();
-    card.nextDate = daysToAdd(card.correctCount);
+    updateCard(card, true, daysToAdd(card.correctCount));
+
     return { cards: cards };
 };
 
@@ -56,7 +59,6 @@ export const pause = (cards: MemoryCard[], id: number): CardsUpdate => {
 };
 
 export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
-    console.log('practise');
     const card = cards.find((card) => card.id === id);
     if (!card) {
         throw new Error();
