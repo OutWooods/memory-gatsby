@@ -30,7 +30,7 @@ const IndexPage = (): JSX.Element => {
         return (
             <Layout>
                 <p>Cards you need today are: {todaysCards.map((card) => card.id).join(' ')}</p>
-                {cardConstructor(todaysCards[1], dispatch)}
+                {cardConstructor(todaysCards[0], dispatch)}
             </Layout>
         );
     }
