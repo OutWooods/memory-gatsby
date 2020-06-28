@@ -19,13 +19,24 @@ export const getCards = (): MemoryCard[] => {
 
     const memoryCards = localStorageHolder.getItem('memory-cards');
     if (memoryCards) {
-        return JSON.parse(memoryCards).map((card: MemoryCard) => {
+        const storedCards = JSON.parse(memoryCards).map((card: MemoryCard) => {
             card.nextDate = new Date(card.nextDate);
             card.isPaused = card.isPaused ? new Date(card.isPaused) : undefined;
             card.secondAttempt = card.secondAttempt ? new Date(card.secondAttempt) : undefined;
             card.lastAttempt = card.lastAttempt ? new Date(card.lastAttempt) : undefined;
             return card;
         });
+        console.log(storedCards.length);
+        let lastCard = 0;
+        const newCards = storedCards.filter((card: MemoryCard) => {
+            if (lastCard === card.id) {
+                return false;
+            }
+            lastCard = card.id;
+            return true;
+        });
+        console.log(newCards.length);
+        return newCards;
     }
 
     return defaultData();
