@@ -26,7 +26,6 @@ export const getCards = (): MemoryCard[] => {
             card.lastAttempt = card.lastAttempt ? new Date(card.lastAttempt) : undefined;
             return card;
         });
-        console.log(storedCards.length);
         let lastCard = 0;
         const newCards = storedCards.filter((card: MemoryCard) => {
             if (lastCard === card.id) {
@@ -35,7 +34,6 @@ export const getCards = (): MemoryCard[] => {
             lastCard = card.id;
             return true;
         });
-        console.log(newCards.length);
         return newCards;
     }
 
