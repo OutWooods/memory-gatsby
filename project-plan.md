@@ -1,21 +1,39 @@
-[] Add new cards
+## Add Text
 
-[]
+[] Store a text in local storage.
+
+[] Add text to local storage (which then breaks it down into sections of 10).
+
+## Quiz
+
+[] Pick a level of difficulty.
+
+[] At first only show 10 words.
+
+[] Click to reveal the word, then mark as right or wrong.
+
+[] If you get a particular word wrong, it will come up again in the next 2 quizzes.
+
+## Algorithm
+
+[] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
+
+[] Each time you get it right, it goes up a level for that section.
+
+[] Can only do it once an hour.
+
+## Levels
+
+1 - 20% of words missing
+2 - 30%
+3 - 50%
+4 - 75%
+5 - 90%
+6 - 100%
 
 
--- Algorithm
+## Longer term
 
-Wrong - Show tomorrow
-Right - 1 day, 3 days, 5 days, 7 days, 1 month, 3 months
-
-Add new card - only if 15 or lower are happening tomorrow
-Show count of remaining cards
-
-card  = {
-    number: ,
-    correct-chain: ,
-    next-day: date,
-}
-
-new - adds a card for tomorrow
-
+1 - voice detection?
+2 - clumping words together
+3 - bias to longer words
