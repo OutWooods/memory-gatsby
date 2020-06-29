@@ -2,9 +2,9 @@
   "include": ["./src/**/*"],
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
+    "target": "ES2019",
     "jsx": "preserve",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "ES2019"],
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
