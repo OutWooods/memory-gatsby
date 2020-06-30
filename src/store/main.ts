@@ -7,7 +7,8 @@ interface ProblemWord {
     position: number;
 }
 
-interface Text {
+export interface Text {
+    lastAttempt: Date | undefined;
     position: number;
     content: string;
     level: number;
@@ -36,6 +37,7 @@ export const upload = (content: string): void => {
         correctCount: 0,
         incorrectCount: 0,
         problemWords: [],
+        lastAttempt: undefined,
     }));
 
     if (localStorageHolder) {
@@ -47,17 +49,17 @@ export const getText = (): Text[] => {
     if (localStorageHolder) {
         const memoryText = localStorageHolder.getItem('memory-text');
         if (memoryText) {
-            return JSON.parse(memoryText);
+            return JSON.parse(memoryText).map((text: Text) => {
+                text.lastAttempt = text.lastAttempt ? new Date(text.lastAttempt) : undefined;
+                return text;
+            });
         }
     }
     return [];
 };
 
-export const setText = (text: Text[]): boolean => {
+export const setText = (text: Text[]): void => {
     if (localStorageHolder) {
         localStorageHolder.setItem('memory-text', JSON.stringify(text));
-        return true;
     }
-
-    return false;
 };
