@@ -28,7 +28,7 @@ export const splitByWord = (content: string): string[] => {
     }, []);
 };
 
-export const upload = (content: string): boolean => {
+export const upload = (content: string): void => {
     const text = splitByWord(content).map((section, index) => ({
         position: index,
         content: section,
@@ -40,10 +40,7 @@ export const upload = (content: string): boolean => {
 
     if (localStorageHolder) {
         localStorageHolder.setItem('memory-text', JSON.stringify(text));
-        return true;
     }
-
-    return false;
 };
 
 export const getText = (): Text[] => {

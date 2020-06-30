@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Layout from '../components/layout';
+import { Text, upload, getText, setText } from '../store/main';
+import { reducer, TextAction, init } from '../store/reducer';
 
 const IndexPage = (): JSX.Element => {
-    const [count, setCount] = useState(0);
+    const [{ text }, dispatch] = useReducer(reducer, {}, init);
+    // TODO find a more performant way to do this
+    useEffect(() => setText(text));
+
+    if (text.length === 0) {
+        return (
+            <Layout>
+                <p>You need to upload a text</p>
+                <textarea></textarea>
+                <button onClick={() => dispatch({ type: 'UPLOAD' })}>Upload</button>
+            </Layout>
+        );
+    }
 
     return (
         <Layout>
-            <h1 className="text-blue-200">Hello</h1>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click</button>
+            <p>Uploaded!</p>
         </Layout>
     );
 };
