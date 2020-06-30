@@ -1,3 +1,5 @@
+const localStorageHolder = typeof localStorage !== 'undefined' && localStorage;
+
 interface ProblemWord {
     word: string;
     correctCount: number;
@@ -26,9 +28,8 @@ export const splitByWord = (content: string): string[] => {
     }, []);
 };
 
-export const upload = (content: string): Text[] => {
-    const textSections = splitByWord(content);
-    textSections.map((section, index) => ({
+export const upload = (content: string): boolean => {
+    const text = splitByWord(content).map((section, index) => ({
         position: index,
         content: section,
         level: 1,
@@ -37,5 +38,29 @@ export const upload = (content: string): Text[] => {
         problemWords: [],
     }));
 
+    if (localStorageHolder) {
+        localStorageHolder.setItem('memory-text', JSON.stringify(text));
+        return true;
+    }
+
+    return false;
+};
+
+export const getText = (): Text[] => {
+    if (localStorageHolder) {
+        const memoryText = localStorageHolder.getItem('memory-text');
+        if (memoryText) {
+            return JSON.parse(memoryText);
+        }
+    }
     return [];
+};
+
+export const setText = (text: Text[]): boolean => {
+    if (localStorageHolder) {
+        localStorageHolder.setItem('memory-text', JSON.stringify(text));
+        return true;
+    }
+
+    return false;
 };
