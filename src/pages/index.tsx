@@ -26,10 +26,14 @@ const IndexPage = (): JSX.Element => {
     }
 
     if (!textInfo.uploadDate) {
+        const formattedText = text.map(({ content }) => content).join('\n');
         return (
             <Layout>
-                <p>Does this look OK?</p>
-                <button onClick={() => dispatch({ type: 'UPLOAD' })}>Upload</button>
+                <p className="text-xl pb-4">Does this look OK?</p>
+                <p className="whitespace-pre-line pb-4">{formattedText}</p>
+                <button className="pr-4" onClick={() => dispatch({ type: 'UPLOAD' })}>
+                    Upload
+                </button>
                 <button onClick={() => dispatch({ type: 'CANCEL_UPLOAD' })}>Cancel</button>
             </Layout>
         );
