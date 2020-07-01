@@ -17,6 +17,11 @@ export interface Text {
     problemWords: ProblemWord[];
 }
 
+export interface TextInfo {
+    uploadDate?: Date;
+    lastAttempt?: Date;
+}
+
 export const splitByWord = (content: string): string[] => {
     return content.split('\n').reduce((lines: string[], newString: string) => {
         if (lines.length !== 0 && (newString.match(/\s/g) || []).length <= 4) {
@@ -29,8 +34,8 @@ export const splitByWord = (content: string): string[] => {
     }, []);
 };
 
-export const upload = (content: string): void => {
-    const text = splitByWord(content).map((section, index) => ({
+export const formatText = (content: string): Text[] => {
+    return splitByWord(content).map((section, index) => ({
         position: index,
         content: section,
         level: 1,
@@ -39,10 +44,21 @@ export const upload = (content: string): void => {
         problemWords: [],
         lastAttempt: undefined,
     }));
+};
 
+export const upload = (text: Text[]): boolean => {
     if (localStorageHolder) {
         localStorageHolder.setItem('memory-text', JSON.stringify(text));
+        localStorageHolder.setItem(
+            'memory-upload',
+            JSON.stringify({
+                uploadDate: new Date(),
+            }),
+        );
+        return true;
     }
+
+    return false;
 };
 
 export const getText = (): Text[] => {
@@ -58,8 +74,27 @@ export const getText = (): Text[] => {
     return [];
 };
 
+export const getInfo = (): TextInfo => {
+    if (localStorageHolder) {
+        const textInfo = localStorageHolder.getItem('memory-upload');
+        if (textInfo) {
+            const info = JSON.parse(textInfo);
+            info.lastAttempt = info.lastAttempt ? new Date(info.lastAttempt) : undefined;
+            info.uploadDate = info.uploadDate ? new Date(info.uploadDate) : undefined;
+            return info;
+        }
+    }
+    return {};
+};
+
 export const setText = (text: Text[]): void => {
     if (localStorageHolder) {
         localStorageHolder.setItem('memory-text', JSON.stringify(text));
+    }
+};
+
+export const setInfo = (upload: TextInfo): void => {
+    if (localStorageHolder) {
+        localStorageHolder.setItem('memory-upload', JSON.stringify(upload));
     }
 };

@@ -1,8 +1,10 @@
 ## Add Text
 
-[] Store a text in local storage.
+[x] Store a text in local storage.
 
-[] Add text to local storage (which then breaks it down into sections of 10).
+[x] Add text to local storage (which then breaks it down into sections of 10).
+
+[] Refreshes when you upload new text (probably best to just have separate pages tbh)
 
 ## Quiz
 

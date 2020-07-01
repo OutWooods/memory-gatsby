@@ -1,14 +1,14 @@
 import React, { useReducer, useEffect } from 'react';
 import Layout from '../components/layout';
-import { setText } from '../store/main';
+import { setText, setInfo } from '../store/main';
 import { reducer, init } from '../store/reducer';
 
 const IndexPage = (): JSX.Element => {
-    const [{ text, uploadText }, dispatch] = useReducer(reducer, {}, init);
+    const [{ text, textInfo }, dispatch] = useReducer(reducer, {}, init);
     // TODO find a more performant way to do this
-    console.log(text);
     useEffect(() => {
-        if (!uploadText) {
+        setInfo(textInfo);
+        if (textInfo.uploadDate) {
             setText(text);
         }
     });
@@ -20,7 +20,17 @@ const IndexPage = (): JSX.Element => {
                 <textarea
                     onChange={(event) => dispatch({ type: 'NEW_TEXT', uploadText: event.target.value })}
                 ></textarea>
+                <button onClick={() => dispatch({ type: 'FORMAT_TEXT' })}>Upload</button>
+            </Layout>
+        );
+    }
+
+    if (!textInfo.uploadDate) {
+        return (
+            <Layout>
+                <p>Does this look OK?</p>
                 <button onClick={() => dispatch({ type: 'UPLOAD' })}>Upload</button>
+                <button onClick={() => dispatch({ type: 'CANCEL_UPLOAD' })}>Cancel</button>
             </Layout>
         );
     }
