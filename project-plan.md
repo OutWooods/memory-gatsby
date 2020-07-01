@@ -4,11 +4,9 @@
 
 [x] Add text to local storage (which then breaks it down into sections of 10).
 
-[] Refreshes when you upload new text (probably best to just have separate pages tbh)
+[x] Refreshes when you upload new text (probably best to just have separate pages tbh)
 
 ## Quiz
-
-[] Pick a level of difficulty.
 
 [] At first only show 10 words.
 
@@ -23,6 +21,12 @@
 [] Each time you get it right, it goes up a level for that section.
 
 [] Can only do it once an hour.
+
+What this means
+a) Get all the sections which are 3 or above (and the one after)
+b) Each level apply the hiding on the relevant percentage
+c) Click to reveal and then, tick or cross as is relevant
+d) if all are right in a section,
 
 ## Levels
 

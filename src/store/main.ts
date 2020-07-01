@@ -24,6 +24,10 @@ export interface TextInfo {
 
 export const splitByWord = (content: string): string[] => {
     return content.split('\n').reduce((lines: string[], newString: string) => {
+        if (newString.trim() === '') {
+            return lines;
+        }
+
         if (lines.length !== 0 && (newString.match(/\s/g) || []).length <= 4) {
             lines[lines.length - 1] += `\n${newString}`;
             return lines;

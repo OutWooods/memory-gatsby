@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 import Layout from '../components/layout';
 import { setText, setInfo } from '../store/main';
 import { reducer, init } from '../store/reducer';
+import TextSection from '../components/TextSection';
 
 const IndexPage = (): JSX.Element => {
     const [{ text, textInfo }, dispatch] = useReducer(reducer, {}, init);
@@ -39,8 +40,12 @@ const IndexPage = (): JSX.Element => {
         );
     }
 
+    const showText = text.filter((part) => part.level >= 3);
+    const allTextToShow = showText.length === text.length ? showText : [...showText, text[showText.length]];
+    const formattedText = allTextToShow.map((text) => <TextSection text={text} key={text.position} />);
     return (
         <Layout>
+            <div>{formattedText}</div>
             <p>Uploaded!</p>
         </Layout>
     );
