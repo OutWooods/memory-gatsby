@@ -8,19 +8,23 @@
 
 ## Quiz
 
-[] At first only show 10 words.
+[x] At first only show 10 words.
 
-[] Click to reveal the word, then mark as right or wrong.
+[] Implement the algorithm, labelling each word as shown or not.
 
-[] If you get a particular word wrong, it will come up again in the next 2 quizzes.
+[] Click on a word to reveal it.
 
-## Algorithm
+[] Mark it as right or wrong, and store result.
+
+[] If all right, go up a level, if wrong,stay on same level and store word as a problem area.
+
+[] Next 2 times, that word should be one of those faded out.
 
 [] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
 
-[] Each time you get it right, it goes up a level for that section.
-
 [] Can only do it once an hour.
+
+## Algorithm
 
 What this means
 a) Get all the sections which are 3 or above (and the one after)
@@ -37,6 +41,8 @@ d) if all are right in a section,
 5 - 90%
 6 - 100%
 
+
+## Then - refactor, tidy up, organise and style
 
 ## Longer term
 
