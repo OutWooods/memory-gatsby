@@ -10,9 +10,9 @@
 
 [x] At first only show 10 words.
 
-[] Implement the algorithm, labelling each word as shown or not.
+[x] Implement the algorithm, labelling each word as shown or not.
 
-[] Click on a word to reveal it.
+[x] Click on a word to reveal it.
 
 [] Mark it as right or wrong, and store result.
 
@@ -43,6 +43,14 @@ d) if all are right in a section,
 
 
 ## Then - refactor, tidy up, organise and style
+
+- Better way to do than have lots of little stateful components? Parent controls state?
+
+- Min width for missing words
+
+- extract and tidy components and add tests
+
+- Deploy so I can start learning
 
 ## Longer term
 

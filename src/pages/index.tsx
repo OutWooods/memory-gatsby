@@ -46,7 +46,6 @@ const IndexPage = (): JSX.Element => {
     return (
         <Layout>
             <div>{formattedText}</div>
-            <p>Uploaded!</p>
         </Layout>
     );
 };
