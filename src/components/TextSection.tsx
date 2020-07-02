@@ -48,15 +48,27 @@ export class Word extends Component<WordProps, WordState> {
         const { position, content } = this.props.text;
 
         return this.state.isShowing ? (
-            <span key={position + content}>{content + ' '}</span>
+            <div className="pl-1 flex flex-col w-24 items-center">
+                <span className="text-center" key={position + content}>
+                    {content + ' '}
+                </span>
+                <div>
+                    <button>right</button> <button>wrong</button>
+                </div>
+            </div>
         ) : (
-            <button
-                key={position + content}
-                className={'text-white border-solid border-4 border-gray-600'}
-                onClick={this.changeStatus}
-            >
-                {content + ' '}
-            </button>
+            <div className="pl-1 flex flex-col w-24 text-white">
+                <button
+                    key={position + content}
+                    className="w-full text-white border-solid border-4 border-gray-600 pl-1"
+                    onClick={this.changeStatus}
+                >
+                    {content + ' '}
+                </button>
+                <div>
+                    <span>right</span> <span>wrong</span>
+                </div>
+            </div>
         );
     }
 }
@@ -87,11 +99,17 @@ export default function TextSection({ text }: Props): JSX.Element {
             return isHidden ? (
                 <Word key={position + content} text={{ position, content, isHidden }} />
             ) : (
-                <span key={position + content}>{content + ' '}</span>
+                <span className="pl-1" key={position + content}>
+                    {content + ' '}
+                </span>
             );
         });
     };
-    const display = sections.map((section, index) => <p key={index}>{sectionText(section)}</p>);
+    const display = sections.map((section, index) => (
+        <div className="flex" key={index}>
+            {sectionText(section)}
+        </div>
+    ));
 
     return (
         <div>
