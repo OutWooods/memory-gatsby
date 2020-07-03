@@ -7,11 +7,14 @@ interface Props {
 
 interface State {
     sections: TextSection[][];
+    isRight: boolean;
 }
 
 interface WordProps {
     text: TextSection;
     unHide: () => void;
+    correct: () => void;
+    incorrect: () => void;
 }
 
 interface LooseObject {
@@ -23,6 +26,7 @@ interface TextSection {
     isHidden: boolean;
     position: number;
     isTesting: boolean;
+    isRight?: boolean;
 }
 
 const LEVELS: LooseObject = {
@@ -34,21 +38,34 @@ const LEVELS: LooseObject = {
     DEFAULT: 1,
 };
 
-const sectionText = (section: TextSection[], unHide: (textIndex: number) => void) =>
+const sectionText = (
+    section: TextSection[],
+    unHide: (textIndex: number) => void,
+    correct: (textIndex: number) => void,
+    incorrect: (textIndex: number) => void,
+) =>
     section.map((textSection) => (
         <Word
             key={textSection.position + textSection.content}
             text={textSection}
             unHide={() => unHide(textSection.position)}
+            correct={() => correct(textSection.position)}
+            incorrect={() => incorrect(textSection.position)}
         />
     ));
 
 // events - get one wrong, or get them all right
-export function Word({ text, unHide }: WordProps): JSX.Element {
-    const { position, content, isHidden, isTesting } = text;
+export function Word({ text, unHide, correct, incorrect }: WordProps): JSX.Element {
+    const { position, content, isHidden, isTesting, isRight } = text;
+
+    const coreStyle = 'pr-1';
 
     if (!isTesting) {
-        return <span className="pr-1">{content}</span>;
+        return <span className={`${coreStyle}`}>{content}</span>;
+    }
+
+    if (isRight !== undefined) {
+        return <span className={`${coreStyle} ${isRight ? 'text-green-800' : 'text-purple-700'}`}>{content}</span>;
     }
 
     return isHidden ? (
@@ -66,7 +83,7 @@ export function Word({ text, unHide }: WordProps): JSX.Element {
                 {content + ' '}
             </span>
             <div>
-                <button>right</button> <button>wrong</button>
+                <button onClick={correct}>right</button> <button onClick={incorrect}>wrong</button>
             </div>
         </div>
     );
@@ -97,6 +114,7 @@ const splitSections = (content: string, level: number) => {
 export default class TextSectionComponent extends Component<Props, State> {
     state = {
         sections: splitSections(this.props.text.content, LEVELS[this.props.text.level]),
+        isRight: true,
     };
 
     render(): JSX.Element {
@@ -109,14 +127,40 @@ export default class TextSectionComponent extends Component<Props, State> {
             sectionCopy[textIndex] = textCopy;
             sectionsCopy[sectionIndex] = sectionCopy;
 
-            // 5. Set the state to our new copy
             this.setState({ sections: sectionsCopy });
         };
 
+        const correct = (sectionIndex: number, textIndex: number) => {
+            const sectionsCopy = [...this.state.sections];
+            const sectionCopy = [...sectionsCopy[sectionIndex]];
+            const textCopy = { ...sectionCopy[textIndex] };
+
+            textCopy.isRight = true;
+            sectionCopy[textIndex] = textCopy;
+            sectionsCopy[sectionIndex] = sectionCopy;
+
+            this.setState({ sections: sectionsCopy });
+        };
+
+        const incorrect = (sectionIndex: number, textIndex: number) => {
+            const sectionsCopy = [...this.state.sections];
+            const sectionCopy = [...sectionsCopy[sectionIndex]];
+            const textCopy = { ...sectionCopy[textIndex] };
+
+            textCopy.isRight = false;
+            sectionCopy[textIndex] = textCopy;
+            sectionsCopy[sectionIndex] = sectionCopy;
+
+            this.setState({ sections: sectionsCopy, isRight: false });
+        };
+
         const display = this.state.sections.map((section, index) => {
+            const showAnswerIndexed = (textIndex: number) => showAnswer(index, textIndex);
+            const correctIndexed = (textIndex: number) => correct(index, textIndex);
+            const incorrectIndexed = (textIndex: number) => incorrect(index, textIndex);
             return (
                 <div className="flex" key={index}>
-                    {sectionText(section, (textIndex: number) => showAnswer(index, textIndex))}
+                    {sectionText(section, showAnswerIndexed, correctIndexed, incorrectIndexed)}
                 </div>
             );
         });

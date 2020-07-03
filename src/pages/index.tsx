@@ -42,7 +42,9 @@ const IndexPage = (): JSX.Element => {
 
     const showText = text.filter((part) => part.level >= 3);
     const allTextToShow = showText.length === text.length ? showText : [...showText, text[showText.length]];
+    // Add a correct and incorrect function
     const formattedText = allTextToShow.map((text) => <TextSection text={text} key={text.position} />);
+
     return (
         <Layout>
             <div>{formattedText}</div>
