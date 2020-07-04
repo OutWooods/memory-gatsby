@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text } from '../store/main';
+import { Text, ProblemWord } from '../store/main';
 
 interface Props {
     text: Text;
     completeSection: (isRight: boolean) => void;
     wrongWord: (letterPlace: number) => void;
+    rightWord: (letterPlace: number) => void;
 }
 
 interface State {
@@ -91,7 +92,7 @@ export function Word({ text, unHide, correct, incorrect }: WordProps): JSX.Eleme
     );
 }
 
-const splitSections = (content: string, level: number) => {
+const splitSections = (content: string, level: number, problemWords: ProblemWord[]) => {
     return content.split('\n').map((section) => {
         const newSection: TextSection[] = section.split(/\s/g).map((content, index) => ({
             position: index,
@@ -102,8 +103,16 @@ const splitSections = (content: string, level: number) => {
 
         const numberToGet = Math.floor(newSection.length * level) + 1;
         const allIndexes = [...Array(newSection.length).keys()];
+
+        const priortityWords = problemWords.map((problemWord) => problemWord.position);
+
         for (let i = 0; i < numberToGet; i += 1) {
-            const position = Math.floor(Math.random() * allIndexes.length);
+            let position;
+            if (i < priortityWords.length) {
+                position = priortityWords[i];
+            } else {
+                position = Math.floor(Math.random() * allIndexes.length);
+            }
             newSection[position].isHidden = true;
             newSection[position].isTesting = true;
             allIndexes.splice(allIndexes.indexOf(position), 1);
@@ -115,7 +124,7 @@ const splitSections = (content: string, level: number) => {
 
 export default class TextSectionComponent extends Component<Props, State> {
     state = {
-        sections: splitSections(this.props.text.content, LEVELS[this.props.text.level]),
+        sections: splitSections(this.props.text.content, LEVELS[this.props.text.level], this.props.text.problemWords),
         isRight: true,
     };
 
@@ -141,14 +150,12 @@ export default class TextSectionComponent extends Component<Props, State> {
             sectionCopy[textIndex] = textCopy;
             sectionsCopy[sectionIndex] = sectionCopy;
 
+            this.props.rightWord(textIndex);
             const hasFinishedSection = !sectionsCopy
                 .flat()
                 .find((word) => word.isTesting && word.isRight === undefined);
             if (hasFinishedSection) {
-                console.log('done');
-                const allCorrect = !sectionsCopy.flat().find((word) => word.isTesting && !word.isRight);
-                console.log(allCorrect);
-                this.props.completeSection(allCorrect);
+                this.props.completeSection(this.state.isRight);
             }
             this.setState({ sections: sectionsCopy });
         };
@@ -163,7 +170,9 @@ export default class TextSectionComponent extends Component<Props, State> {
             sectionsCopy[sectionIndex] = sectionCopy;
 
             this.props.wrongWord(textIndex);
-            const hasFinishedSection = sectionsCopy.flat().find((word) => word.isTesting && word.isRight === undefined);
+            const hasFinishedSection = !sectionsCopy
+                .flat()
+                .find((word) => word.isTesting && word.isRight === undefined);
             if (hasFinishedSection) {
                 this.props.completeSection(false);
             }

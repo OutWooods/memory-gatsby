@@ -3,6 +3,7 @@ import Layout from '../components/layout';
 import { setText, setInfo } from '../store/main';
 import { reducer, init } from '../store/reducer';
 import TextSection from '../components/TextSection';
+import { differenceInMinutes, formatDuration } from 'date-fns';
 
 const IndexPage = (): JSX.Element => {
     const [{ text, textInfo }, dispatch] = useReducer(reducer, {}, init);
@@ -40,20 +41,33 @@ const IndexPage = (): JSX.Element => {
         );
     }
 
-    const wrongWord = (position: number, letterPlace: number) =>
+    const timeSinceLast = textInfo.lastAttempt ? differenceInMinutes(new Date(), textInfo.lastAttempt) : 100;
+    if (timeSinceLast < 60 && timeSinceLast >= 0) {
+        return (
+            <Layout>
+                <div> Come back again in {formatDuration({ minutes: 60 - timeSinceLast })}</div>
+            </Layout>
+        );
+    }
+
+    const wrongWord = (position: number, letterPlace: number) => {
         dispatch({ type: 'WRONG_WORD', position, letterPlace });
+    };
+    const rightWord = (position: number, letterPlace: number) => {
+        dispatch({ type: 'RIGHT_WORD', position, letterPlace });
+    };
     const completeSection = (position: number, isRight: boolean) => {
         dispatch({ type: 'COMPLETE_ROUND', position, isRight });
     };
     const showText = text.filter((part) => part.level >= 3);
     const allTextToShow = showText.length === text.length ? showText : [...showText, text[showText.length]];
-    // Add a correct and incorrect function
     const formattedText = allTextToShow.map((text) => (
         <TextSection
             text={text}
             key={text.position}
             completeSection={(isRight: boolean) => completeSection(text.position, isRight)}
             wrongWord={(letterPlace: number) => wrongWord(text.position, letterPlace)}
+            rightWord={(letterPlace: number) => rightWord(text.position, letterPlace)}
         />
     ));
 

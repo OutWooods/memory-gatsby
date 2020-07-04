@@ -16,17 +16,19 @@
 
 [x] Click on a word to reveal it.
 
-[] Mark it as right or wrong, and store result.
+[x] Mark it as right or wrong, and store result.
 
-[] If all right, go up a level, if wrong,stay on same level and store word as a problem area.
+[x] If all right, go up a level, if wrong,stay on same level and store word as a problem area.
 
-[] Next 2 times, that word should be one of those faded out.
+[x] Next 2 times, that word should be one of those faded out.
 
-[] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
+[x] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
 
-[] Can only do it once an hour.
+[x] when you get a word right, it removes it as a problem word if you get it right
 
 [] Generate a percentage score of text memorised
+
+[] Can only do it once an hour.
 
 ## Algorithm
 
