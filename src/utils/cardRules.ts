@@ -37,7 +37,7 @@ export const showForPractise = (card: MemoryCard): boolean => {
 
     return (
         (!card.secondAttempt || !isToday(card.secondAttempt)) &&
-        differenceInHours(card.lastAttempt, new Date()) > COOLDOWN_LENGTH
+        differenceInHours(new Date(), card.lastAttempt) > COOLDOWN_LENGTH
     );
 };
 
