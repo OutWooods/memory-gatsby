@@ -40,10 +40,22 @@ const IndexPage = (): JSX.Element => {
         );
     }
 
+    const wrongWord = (position: number, letterPlace: number) =>
+        dispatch({ type: 'WRONG_WORD', position, letterPlace });
+    const completeSection = (position: number, isRight: boolean) => {
+        dispatch({ type: 'COMPLETE_ROUND', position, isRight });
+    };
     const showText = text.filter((part) => part.level >= 3);
     const allTextToShow = showText.length === text.length ? showText : [...showText, text[showText.length]];
     // Add a correct and incorrect function
-    const formattedText = allTextToShow.map((text) => <TextSection text={text} key={text.position} />);
+    const formattedText = allTextToShow.map((text) => (
+        <TextSection
+            text={text}
+            key={text.position}
+            completeSection={(isRight: boolean) => completeSection(text.position, isRight)}
+            wrongWord={(letterPlace: number) => wrongWord(text.position, letterPlace)}
+        />
+    ));
 
     return (
         <Layout>

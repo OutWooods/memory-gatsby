@@ -6,6 +6,8 @@
 
 [x] Refreshes when you upload new text (probably best to just have separate pages tbh)
 
+[] Refactor and test this like crazy, it's very messy
+
 ## Quiz
 
 [x] At first only show 10 words.
@@ -23,6 +25,8 @@
 [] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
 
 [] Can only do it once an hour.
+
+[] Generate a percentage score of text memorised
 
 ## Algorithm
 

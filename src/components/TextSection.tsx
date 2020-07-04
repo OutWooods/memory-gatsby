@@ -3,6 +3,8 @@ import { Text } from '../store/main';
 
 interface Props {
     text: Text;
+    completeSection: (isRight: boolean) => void;
+    wrongWord: (letterPlace: number) => void;
 }
 
 interface State {
@@ -139,6 +141,15 @@ export default class TextSectionComponent extends Component<Props, State> {
             sectionCopy[textIndex] = textCopy;
             sectionsCopy[sectionIndex] = sectionCopy;
 
+            const hasFinishedSection = !sectionsCopy
+                .flat()
+                .find((word) => word.isTesting && word.isRight === undefined);
+            if (hasFinishedSection) {
+                console.log('done');
+                const allCorrect = !sectionsCopy.flat().find((word) => word.isTesting && !word.isRight);
+                console.log(allCorrect);
+                this.props.completeSection(allCorrect);
+            }
             this.setState({ sections: sectionsCopy });
         };
 
@@ -151,6 +162,11 @@ export default class TextSectionComponent extends Component<Props, State> {
             sectionCopy[textIndex] = textCopy;
             sectionsCopy[sectionIndex] = sectionCopy;
 
+            this.props.wrongWord(textIndex);
+            const hasFinishedSection = sectionsCopy.flat().find((word) => word.isTesting && word.isRight === undefined);
+            if (hasFinishedSection) {
+                this.props.completeSection(false);
+            }
             this.setState({ sections: sectionsCopy, isRight: false });
         };
 

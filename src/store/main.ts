@@ -1,7 +1,6 @@
 const localStorageHolder = typeof localStorage !== 'undefined' && localStorage;
 
 interface ProblemWord {
-    word: string;
     correctCount: number;
     incorrectCount: number;
     position: number;
