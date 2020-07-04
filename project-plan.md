@@ -26,9 +26,9 @@
 
 [x] when you get a word right, it removes it as a problem word if you get it right
 
-[] Generate a percentage score of text memorised
+[x] Generate a percentage score of text memorised
 
-[] Can only do it once an hour.
+[x] Can only do it once an hour.
 
 ## Algorithm
 
@@ -63,3 +63,4 @@ d) if all are right in a section,
 1 - voice detection?
 2 - clumping words together
 3 - bias to longer words
+4 - Ability to have multiple texts
