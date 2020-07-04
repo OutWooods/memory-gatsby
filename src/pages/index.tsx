@@ -53,7 +53,8 @@ const IndexPage = (): JSX.Element => {
         <Layout>
             <p>Done</p>
             <ListLink to="/new">Add cards</ListLink>
-            {practiseCards.length !== 0 && <ListLink to="/wrong">Add cards</ListLink>}
+            <br />
+            {practiseCards.length !== 0 && <ListLink to="/wrong">Practise wrong cards</ListLink>}
             <p>Tomorrow you have {tomorrowsCards.length} to do</p>
             <p>Cards you need tomorrow are: {formatter(tomorrowsCards.map((card: MemoryCard) => card.id))}</p>
         </Layout>

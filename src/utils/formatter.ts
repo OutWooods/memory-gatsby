@@ -2,6 +2,7 @@ export const formatter = (ids: number[]): string => {
     let message = '';
     let chainNumber: number | undefined = undefined;
     let lastNumber: number | undefined = undefined;
+
     ids.forEach((id) => {
         if (!lastNumber) {
             lastNumber = id;
