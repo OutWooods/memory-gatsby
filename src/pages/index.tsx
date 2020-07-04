@@ -8,6 +8,7 @@ import { CARD_ACTION } from '../store/actions';
 import { isTomorrow } from 'date-fns';
 import ListLink from '../components/listLink';
 import defaultData from '../store/defaultData';
+import { formatter } from '../utils/formatter';
 
 const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void, showPause = true) => (
     <Card
@@ -29,7 +30,7 @@ const IndexPage = (): JSX.Element => {
     if (todaysCards.length !== 0) {
         return (
             <Layout>
-                <p>Cards you need today are: {todaysCards.map((card) => card.id).join(' ')}</p>
+                <p>Cards you need today are: {formatter(todaysCards.map((card) => card.id))}</p>
                 {cardConstructor(todaysCards[0], dispatch)}
             </Layout>
         );
@@ -46,16 +47,15 @@ const IndexPage = (): JSX.Element => {
     }
 
     const practiseCards = cards.filter((card) => showForPractise(card));
-    const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
+    const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate));
+
     return (
         <Layout>
             <p>Done</p>
             <ListLink to="/new">Add cards</ListLink>
             {practiseCards.length !== 0 && <ListLink to="/wrong">Add cards</ListLink>}
-            <p>Tomorrow you have {tomorrowsCards} to do</p>
-            {practiseCards.length !== 0 && (
-                <button onClick={() => dispatch({ type: WRONG_VISIBILITY.SHOW })}>Practise wrong cards</button>
-            )}
+            <p>Tomorrow you have {tomorrowsCards.length} to do</p>
+            <p>Cards you need tomorrow are: {formatter(tomorrowsCards.map((card: MemoryCard) => card.id))}</p>
         </Layout>
     );
 };

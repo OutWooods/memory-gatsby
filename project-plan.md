@@ -94,9 +94,7 @@
 
 [x] Bug with wrong history cards showing
 
-[] Better format for message of cards tomorow (and give the numbers)
-
-[] Add better url for site
+[x] Better format for message of cards tomorow (and give the numbers)
 
 Now do all the refactoring and testing - ESP TESTING
 
