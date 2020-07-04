@@ -1,15 +1,14 @@
 import { MemoryCard, getCards } from './main';
 import { wrong, right, pause, practise, addCard } from '../utils/cards';
 import { isBefore, endOfToday } from 'date-fns';
-import { WRONG_VISIBILITY, CARD_ACTION, DEFAULT_ACTION } from './actions';
+import { CARD_ACTION, DEFAULT_ACTION } from './actions';
 
 interface IState {
     cards: MemoryCard[];
-    showWrong: boolean;
 }
 
 interface Action {
-    type: CARD_ACTION | WRONG_VISIBILITY | DEFAULT_ACTION;
+    type: CARD_ACTION | DEFAULT_ACTION;
     card?: MemoryCard;
     cardId?: number;
     payload?: MemoryCard[];
@@ -50,10 +49,8 @@ const secondAttemptReducer = (cards: MemoryCard[], { type, cardId }: CardAction)
     }
 };
 
-const showWrongReducer = (type: string) => ({ showWrong: type === WRONG_VISIBILITY.SHOW });
-
 export const init = (): IState => {
-    return { cards: getCards(), showWrong: false };
+    return { cards: getCards() };
 };
 
 export const reducer = (state: IState, action: Action): IState => {
@@ -67,10 +64,6 @@ export const reducer = (state: IState, action: Action): IState => {
 
     if (action.type === CARD_ACTION.ADD) {
         return { ...state, ...addCard(state.cards) };
-    }
-
-    if (action.type === WRONG_VISIBILITY.SHOW || action.type == WRONG_VISIBILITY.HIDE) {
-        return { ...state, ...showWrongReducer(action.type) };
     }
 
     switch (action.type) {

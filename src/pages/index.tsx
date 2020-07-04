@@ -4,7 +4,7 @@ import { MemoryCard, setCards } from '../store/main';
 import Card from '../components/card';
 import { reducer, CardAction, init } from '../store/reducer';
 import { showForPractise, showToday } from '../utils/cardRules';
-import { CARD_ACTION, WRONG_VISIBILITY } from '../store/actions';
+import { CARD_ACTION } from '../store/actions';
 import { isTomorrow } from 'date-fns';
 import ListLink from '../components/listLink';
 import defaultData from '../store/defaultData';
@@ -20,7 +20,7 @@ const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) =>
 );
 
 const IndexPage = (): JSX.Element => {
-    const [{ cards, showWrong }, dispatch] = useReducer(reducer, {}, init);
+    const [{ cards }, dispatch] = useReducer(reducer, {}, init);
     // TODO find a more performant way to do this
     useEffect(() => setCards(cards));
     defaultData();
@@ -46,25 +46,12 @@ const IndexPage = (): JSX.Element => {
     }
 
     const practiseCards = cards.filter((card) => showForPractise(card));
-    if (practiseCards.length === 0 && showWrong) {
-        dispatch({ type: WRONG_VISIBILITY.HIDE });
-    }
-
-    if (showWrong) {
-        return (
-            <Layout>
-                <p>Practise</p>
-                {practiseCards.map((card) => cardConstructor(card, dispatch, false))}
-                <button onClick={() => dispatch({ type: WRONG_VISIBILITY.HIDE })}>Hide wrong cards</button>
-            </Layout>
-        );
-    }
-
     const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
     return (
         <Layout>
             <p>Done</p>
             <ListLink to="/new">Add cards</ListLink>
+            {practiseCards.length !== 0 && <ListLink to="/wrong">Add cards</ListLink>}
             <p>Tomorrow you have {tomorrowsCards} to do</p>
             {practiseCards.length !== 0 && (
                 <button onClick={() => dispatch({ type: WRONG_VISIBILITY.SHOW })}>Practise wrong cards</button>

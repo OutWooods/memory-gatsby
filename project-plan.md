@@ -92,7 +92,7 @@
 
 [x] check for bugs
 
-[] Bug with wrong history cards showing
+[x] Bug with wrong history cards showing
 
 [] Better format for message of cards tomorow (and give the numbers)
 
