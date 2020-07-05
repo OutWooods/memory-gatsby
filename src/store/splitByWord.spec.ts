@@ -37,10 +37,16 @@ High tide and the heron dived when I took the road
 Over the border
 And the gates
 Of the town closed as the town awoke.`;
-        const expectedResult = ['Myself to set foot\nThat second', 'In the still sleeping town and set forth.'];
+        const expectedResult = [
+            'My birthday began with the water-',
+            'Birds and the birds of the winged trees flying my name',
+            'Above the farms and the white horses\nAnd I rose\nIn rainy autumn',
+            'And walked abroad in a shower of all my days.',
+            'High tide and the heron dived when I took the road\nOver the border\nAnd the gates',
+            'Of the town closed as the town awoke.',
+        ];
 
         const result = splitByWord(firstLines);
-        console.log(result);
 
         expect(result.length).toBe(6);
         expect(result).toEqual(expectedResult);
