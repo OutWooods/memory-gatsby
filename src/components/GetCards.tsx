@@ -3,10 +3,6 @@ import { setCards, MemoryCard } from '../store/main';
 import { reducer, init, CardAction } from '../store/reducer';
 import defaultData from '../store/defaultData';
 
-interface Props {
-    child: JSX.Element;
-}
-
 export interface WithCardsProps {
     cards: MemoryCard[];
     dispatch: (cardArction: CardAction) => void;
