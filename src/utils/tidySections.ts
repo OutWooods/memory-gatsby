@@ -1,5 +1,6 @@
 import { Section } from '../components/TextSection';
 import { ProblemWord } from '../store/main';
+import { sampleSize, partition, shuffle } from 'lodash';
 
 export interface LooseObject {
     [key: string]: number;
@@ -8,6 +9,7 @@ export interface LooseObject {
 interface SplitSectionsData {
     content: string;
     problemWords: ProblemWord[];
+    level: number;
 }
 
 const LEVELS: LooseObject = {
@@ -19,43 +21,41 @@ const LEVELS: LooseObject = {
     DEFAULT: 1,
 };
 
-export const splitSections = ({ content, problemWords }: SplitSectionsData): Section[][] => {
-    const calculatedLevel = 1;
-    if (calculatedLevel >= 5) {
-        return content.split('\n').map((section) => {
-            return section.split(/\s/g).map((content, index: number) => ({
-                position: index,
-                content: content,
-                isTesting: true,
-                isHidden: true,
-            }));
-        });
-    }
+export const splitSections = ({ content, level, problemWords }: SplitSectionsData): Section[][] => {
+    const calculatedLevel = LEVELS[level] || LEVELS.DEFAULT;
 
     return content.split('\n').map((section) => {
-        const newSection: Section[] = section.split(/\s/g).map((content, index) => ({
+        const words = section.split(/\s/g);
+        const allIndexes = [...Array(words.length).keys()];
+
+        const newSection: Section[] = words.map((content, index) => ({
             position: index,
             content: content,
             isTesting: false,
             isHidden: false,
         }));
 
-        const numberToGet = Math.floor(newSection.length * calculatedLevel) + 1;
-        const allIndexes = [...Array(newSection.length).keys()];
-
-        const priortityWords = problemWords.map((problemWord) => problemWord.position);
-
-        for (let i = 0; i < numberToGet; i += 1) {
-            let position;
-            if (i < priortityWords.length) {
-                position = priortityWords[i];
+        const numberToGet = Math.max(Math.floor(newSection.length * calculatedLevel), 1) - problemWords.length;
+        let hidden = [];
+        if (problemWords.length > 0) {
+            const problemIds = problemWords.map(({ position }) => position);
+            const [hide, remaining] = partition(newSection, (section) => problemIds.includes(section.position));
+            if (numberToGet > 0) {
+                const newHidden = sampleSize(remaining, numberToGet);
+                hidden = [...hide, ...newHidden];
+            } else if (numberToGet < 0) {
+                hidden = sampleSize(hide, problemWords.length + numberToGet);
             } else {
-                position = Math.floor(Math.random() * allIndexes.length);
+                hidden = [...hide];
             }
-            newSection[position].isHidden = true;
-            newSection[position].isTesting = true;
-            allIndexes.splice(allIndexes.indexOf(position), 1);
+        } else {
+            hidden = sampleSize(newSection, numberToGet);
         }
+
+        hidden.forEach((section) => {
+            section.isHidden = true;
+            section.isTesting = true;
+        });
 
         return newSection;
     });
