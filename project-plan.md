@@ -24,11 +24,13 @@
 
 [x] Once you reach level 3, on all sections, (and get them all right), you get the next set of words.
 
-[x] when you get a word right, it removes it as a problem word if you get it right
+[x] when you get a word right, it rem1oves it as a problem word if you get it right
 
 [x] Generate a percentage score of text memorised
 
 [x] Can only do it once an hour.
+
+[] Would like to see my results, not for them to instantly disappear.
 
 ## Algorithm
 
@@ -64,3 +66,4 @@ d) if all are right in a section,
 2 - clumping words together
 3 - bias to longer words
 4 - Ability to have multiple texts
+5 - Better structure for deciding what sections to show (should levels go down as well as up?)
