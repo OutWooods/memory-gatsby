@@ -93,6 +93,17 @@ export function Word({ text, unHide, correct, incorrect }: WordProps): JSX.Eleme
 }
 
 const splitSections = (content: string, level: number, problemWords: ProblemWord[]) => {
+    if (level >= 5) {
+        return content.split('\n').map((section) => {
+            return section.split(/\s/g).map((content, index) => ({
+                position: index,
+                content: content,
+                isTesting: true,
+                isHidden: true,
+            }));
+        });
+    }
+
     return content.split('\n').map((section) => {
         const newSection: TextSection[] = section.split(/\s/g).map((content, index) => ({
             position: index,
