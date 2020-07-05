@@ -27,34 +27,29 @@ export const splitSections = ({ content, level, problemWords }: SplitSectionsDat
     return content.split('\n').map((section) => {
         const words = section.split(/\s/g);
         const allIndexes = [...Array(words.length).keys()];
+        const problemIds = problemWords.map(({ position }) => position);
+        const numberToGet = Math.max(Math.floor(allIndexes.length * calculatedLevel), 1);
+        let hidden: number[] = [];
 
-        const newSection: Section[] = words.map((content, index) => ({
-            position: index,
-            content: content,
-            isTesting: false,
-            isHidden: false,
-        }));
-
-        const numberToGet = Math.max(Math.floor(newSection.length * calculatedLevel), 1) - problemWords.length;
-        let hidden = [];
-        if (problemWords.length > 0) {
-            const problemIds = problemWords.map(({ position }) => position);
-            const [hide, remaining] = partition(newSection, (section) => problemIds.includes(section.position));
-            if (numberToGet > 0) {
-                const newHidden = sampleSize(remaining, numberToGet);
-                hidden = [...hide, ...newHidden];
-            } else if (numberToGet < 0) {
-                hidden = sampleSize(hide, problemWords.length + numberToGet);
-            } else {
-                hidden = [...hide];
-            }
+        const [hide, remaining] = partition(allIndexes, (position) => problemIds.includes(position));
+        if (numberToGet < problemIds.length) {
+            hidden = sampleSize(hide, numberToGet);
         } else {
-            hidden = sampleSize(newSection, numberToGet);
+            hidden = [...hide, ...sampleSize(remaining, numberToGet - problemIds.length)];
         }
 
-        hidden.forEach((section) => {
-            section.isHidden = true;
-            section.isTesting = true;
+        const newSection: Section[] = words.map((content, index) => {
+            const section = {
+                position: index,
+                content: content,
+                isTesting: false,
+                isHidden: false,
+            };
+            if (hidden.includes(index)) {
+                section.isTesting = true;
+                section.isHidden = true;
+            }
+            return section;
         });
 
         return newSection;
