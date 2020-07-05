@@ -4,6 +4,8 @@
 
 [x] Extract the reducers to separate files
 
+[] <- see if I can get props with HOC working>
+
 [] Add unit tests for the 3 reducers
 
 [] Improve index page logic (break to separate pages)

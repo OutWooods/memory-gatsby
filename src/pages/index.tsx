@@ -1,14 +1,15 @@
-import React, { useReducer, useEffect } from 'react';
+import React from 'react';
 import Layout from '../components/layout';
-import { MemoryCard, setCards } from '../store/main';
+import { MemoryCard } from '../store/main';
 import Card from '../components/card';
-import { reducer, CardAction, init } from '../store/reducer';
+import { CardAction } from '../store/reducer';
 import { showForPractise, showToday } from '../utils/cardRules';
 import { CARD_ACTION } from '../store/actions';
 import { isTomorrow } from 'date-fns';
 import ListLink from '../components/listLink';
-import defaultData from '../store/defaultData';
 import { formatter } from '../utils/formatter';
+import AllCardsView from '../components/AllCardsView';
+import WithCards, { WithCardsProps } from '../components/GetCards';
 
 const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void) => (
     <Card
@@ -20,12 +21,7 @@ const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) =>
     ></Card>
 );
 
-const IndexPage = (): JSX.Element => {
-    const [{ cards }, dispatch] = useReducer(reducer, {}, init);
-    // TODO find a more performant way to do this
-    useEffect(() => setCards(cards));
-    defaultData();
-
+const IndexPage = ({ cards, dispatch }: WithCardsProps): JSX.Element => {
     const todaysCards = cards.filter((card) => showToday(card));
     const pausedCards = cards.filter((card) => card.isPaused);
     if (todaysCards.length !== 0) {
@@ -35,6 +31,14 @@ const IndexPage = (): JSX.Element => {
                 <br />
                 {cardConstructor(todaysCards[0], dispatch)}
                 {pausedCards.length !== 0 && <ListLink to="/paused">Paused cards</ListLink>}
+            </Layout>
+        );
+    }
+
+    if (pausedCards.length !== 0) {
+        return (
+            <Layout>
+                <AllCardsView cards={pausedCards} dispatch={dispatch} title="Paused" />
             </Layout>
         );
     }
@@ -53,4 +57,4 @@ const IndexPage = (): JSX.Element => {
     );
 };
 
-export default IndexPage;
+export default (): JSX.Element => WithCards(IndexPage);
