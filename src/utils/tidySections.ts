@@ -29,14 +29,12 @@ export const splitSections = ({ content, level, problemWords }: SplitSectionsDat
         const allIndexes = [...Array(words.length).keys()];
         const problemIds = problemWords.map(({ position }) => position);
         const numberToGet = Math.max(Math.floor(allIndexes.length * calculatedLevel), 1);
-        let hidden: number[] = [];
-
         const [hide, remaining] = partition(allIndexes, (position) => problemIds.includes(position));
-        if (numberToGet < problemIds.length) {
-            hidden = sampleSize(hide, numberToGet);
-        } else {
-            hidden = [...hide, ...sampleSize(remaining, numberToGet - problemIds.length)];
-        }
+
+        const hiddenIds =
+            numberToGet < problemIds.length
+                ? sampleSize(hide, numberToGet)
+                : [...hide, ...sampleSize(remaining, numberToGet - problemIds.length)];
 
         const newSection: Section[] = words.map((content, index) => {
             const section = {
@@ -45,7 +43,7 @@ export const splitSections = ({ content, level, problemWords }: SplitSectionsDat
                 isTesting: false,
                 isHidden: false,
             };
-            if (hidden.includes(index)) {
+            if (hiddenIds.includes(index)) {
                 section.isTesting = true;
                 section.isHidden = true;
             }
