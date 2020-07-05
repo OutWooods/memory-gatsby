@@ -10,13 +10,13 @@ import ListLink from '../components/listLink';
 import defaultData from '../store/defaultData';
 import { formatter } from '../utils/formatter';
 
-const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void, showPause = true) => (
+const cardConstructor = (card: MemoryCard, dispatch: (cardAction: CardAction) => void) => (
     <Card
         key={card.id}
         card={card}
         wrong={(id: number) => dispatch({ type: CARD_ACTION.WRONG, cardId: id })}
         right={(id: number) => dispatch({ type: CARD_ACTION.RIGHT, cardId: id })}
-        pause={showPause ? (id: number) => dispatch({ type: CARD_ACTION.PAUSE, cardId: id }) : undefined}
+        pause={(id: number) => dispatch({ type: CARD_ACTION.PAUSE, cardId: id })}
     ></Card>
 );
 
@@ -27,28 +27,20 @@ const IndexPage = (): JSX.Element => {
     defaultData();
 
     const todaysCards = cards.filter((card) => showToday(card));
+    const pausedCards = cards.filter((card) => card.isPaused);
     if (todaysCards.length !== 0) {
         return (
             <Layout>
-                <p>Cards you need today are: {formatter(todaysCards.map((card) => card.id))}</p>
+                <p>Remaining cards you need today are: {formatter(todaysCards.map((card) => card.id))}</p>
+                <br />
                 {cardConstructor(todaysCards[0], dispatch)}
-            </Layout>
-        );
-    }
-
-    const pausedCards = cards.filter((card: MemoryCard) => card.isPaused);
-    if (pausedCards.length !== 0) {
-        return (
-            <Layout>
-                <p>Paused</p>
-                {pausedCards.map((card) => cardConstructor(card, dispatch, false))}
+                {pausedCards.length !== 0 && <ListLink to="/paused">Paused cards</ListLink>}
             </Layout>
         );
     }
 
     const practiseCards = cards.filter((card) => showForPractise(card));
     const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate));
-
     return (
         <Layout>
             <p>Done</p>

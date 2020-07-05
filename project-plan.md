@@ -2,29 +2,29 @@
 
 [x] Extract single card view to separate component
 
+[x] Extract the reducers to separate files
+
 [] Add unit tests for the 3 reducers
 
-[x] Extract the reducers to separate files
+[] Improve index page logic (break to separate pages)
+
+  - [] Extract paused cards to separate page
 
 [] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
 
 [] Move some key definitions to separate files and add tests to those
 
-[] Setup jest (or look at what gatsby does for testing)
+[] Find more efficient way to store in local storage
+
+[x] Setup jest (or look at what gatsby does for testing)
 
 [x] Extract actions out into enums
 
-[] Improve index page logic (break to separate pages)
-
-[] Is there any ways of using Gatsby Better?
-
-[] Find more efficient way to store in local storage
-
-[] Go back to main project and update gatsby
+[] Are there any ways of using Gatsby Better?
 
 ## Features
 
-[] Show card numbers you need for today before quiz
+[x] Show card numbers you need for today before quiz
 
 [x] Mark as wrong
 
@@ -98,6 +98,10 @@
 
 Now do all the refactoring and testing - ESP TESTING
 
+## Questions
+
+1. How do you keep data persisting between pages? (context?)
+
 -- Alpha Trial
 
 [] Add a graphing library to show data on cards
@@ -106,37 +110,67 @@ Now do all the refactoring and testing - ESP TESTING
 
 [] Set one big review day (or choices of algorithm)
 
+   [] Maximal efficiency
+
+   [] More convinient
+
 [] Write brief guide to site
 
    [] What each part means
 
    [] Routing to pages
 
-[] If someone gets something wrong multiple times in a row - e.g. 3 times, suggest doing a hint
+   [] Tips on making good cards
 
-[] Can always just check wrong cards
+[] Start adding advice to people
 
-[] Max new cards is toggabled, after a few days
+   [] If someone gets something wrong multiple times in a row - e.g. 3 times, suggest doing a hint
 
-[] Max cards in a day is toggable after a few days
+   [] Can always just check wrong cards
 
-## Questions
+   [] Max new cards is toggabled, after a few days
 
-1. How do you keep data persisting between pages? (context?)
+   [] Max cards in a day is toggable after a few days
+
+   [] Tips at different stages - hints
 
 ## Future ideas
 
 1. Properly tracking events
 
-2. Guides
+  - Aka have a database - probably laravel backend with accounts
 
-3. Tips at different stages - hints
+2. Dual system - real and online cards
 
-4. Tips on making good cards
+3. Mathematical systems
 
 5. Tags
+   - Able to add tags
+   - Able to do decks by tag
+   - Or do all together
 
 6. Stats page - where everything is
+
+## School based usage
+ - Individual accounts (essentially separate site - maybe just be an entirely separate site?)
+    - Can make own cards
+    - Can make own decks
+    - Can share decks
+    - Will add new cards as you request
+
+ - Teacher and student accounts
+   - Teachers can create student accounts
+   - Teachers can reset student's passwords
+   - Students make up their own password
+   - Teachers can see and manage student passwords
+
+ - Teachers can create and share cards with teachers in same school
+   - see data for their students
+   - make up decks
+
+- Students can
+   - Add cards to their deck
+   - Send cards to their teacher to approve (and then share)
 
 ## Random notes
 
