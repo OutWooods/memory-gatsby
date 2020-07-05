@@ -183,3 +183,27 @@ test('will top up non problem words if there is space', () => {
     expect(isHiddenWords.includes('what')).toBe(true);
     expect(isHiddenWords.includes('is')).toBe(true);
 });
+
+test('will not duplicate the same problem word', () => {
+    const content = 'hello what is your name mate I am called again';
+
+    const splitUpContent = splitSections({
+        content: content,
+        level: 3,
+        problemWords: [
+            { position: 1, incorrectCount: 0, correctCount: 0 },
+            { position: 2, incorrectCount: 0, correctCount: 0 },
+        ],
+    });
+
+    const isHidden = splitUpContent[0].filter((section) => section.isHidden);
+    const isHiddenWords = isHidden.map(({ content }) => content);
+    const whatOccurs = isHidden.filter(({ content }) => content === 'what');
+    const isTesting = splitUpContent[0].filter((section) => section.isTesting);
+    expect(splitUpContent.length).toBe(1);
+    expect(splitUpContent[0].length).toBe(10);
+    expect(isHidden.length).toBe(6);
+    expect(isTesting.length).toEqual(isHidden.length);
+    expect(isHiddenWords.includes('what')).toBe(true);
+    expect(whatOccurs.length).toEqual(1);
+});

@@ -1,6 +1,6 @@
 import { Section } from '../components/TextSection';
 import { ProblemWord } from '../store/main';
-import { sampleSize, partition, shuffle } from 'lodash';
+import { sampleSize, partition } from 'lodash';
 
 export interface LooseObject {
     [key: string]: number;
@@ -31,10 +31,10 @@ export const splitSections = ({ content, level, problemWords }: SplitSectionsDat
         const numberToGet = Math.max(Math.floor(allIndexes.length * calculatedLevel), 1);
         const [hide, remaining] = partition(allIndexes, (position) => problemIds.includes(position));
 
-        const hiddenIds =
-            numberToGet < problemIds.length
-                ? sampleSize(hide, numberToGet)
-                : [...hide, ...sampleSize(remaining, numberToGet - problemIds.length)];
+        const hiddenIds = [
+            ...sampleSize(hide, numberToGet),
+            ...sampleSize(remaining, Math.max(numberToGet - problemIds.length, 0)),
+        ];
 
         const newSection: Section[] = words.map((content, index) => {
             const section = {
