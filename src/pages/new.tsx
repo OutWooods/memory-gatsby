@@ -5,7 +5,7 @@ import { setCards, getCards } from '../store/main';
 import { isTomorrow } from 'date-fns';
 import { MAX_CARDS } from '../utils/cardRules';
 
-const IndexPage = (): JSX.Element => {
+const NewPage = (): JSX.Element => {
     const [cards, updateCards] = useState(getCards());
     const newCard = (): void => updateCards(addCard(cards));
     useEffect(() => setCards(cards), [cards]);
@@ -36,4 +36,4 @@ const IndexPage = (): JSX.Element => {
     );
 };
 
-export default IndexPage;
+export default NewPage;
