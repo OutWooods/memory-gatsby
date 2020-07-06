@@ -8,8 +8,7 @@ import { MAX_CARDS } from '../utils/cardRules';
 const IndexPage = (): JSX.Element => {
     const [cards, updateCards] = useState(getCards());
     const newCard = (): void => updateCards(addCard(cards));
-    // TODO find a more performant way to do this
-    useEffect(() => setCards(cards));
+    useEffect(() => setCards(cards), [cards]);
 
     const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
     const newCards = cards.filter((card) => !card.lastAttempt).length;
