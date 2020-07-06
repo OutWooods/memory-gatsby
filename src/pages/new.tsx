@@ -1,13 +1,13 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { addCard } from '../utils/cards';
 import Layout from '../components/layout';
-import { setCards } from '../store/main';
-import { reducer, init } from '../store/reducer';
+import { setCards, getCards } from '../store/main';
 import { isTomorrow } from 'date-fns';
-import { CARD_ACTION } from '../store/actions';
 import { MAX_CARDS } from '../utils/cardRules';
 
 const IndexPage = (): JSX.Element => {
-    const [{ cards }, dispatch] = useReducer(reducer, {}, init);
+    const [cards, updateCards] = useState(getCards());
+    const newCard = (): void => updateCards(addCard(cards));
     // TODO find a more performant way to do this
     useEffect(() => setCards(cards));
 
@@ -28,7 +28,7 @@ const IndexPage = (): JSX.Element => {
             {newCards < MAX_CARDS.NEW ? (
                 <div>
                     <p>Next card number will be {cards.length + 1}</p>
-                    <button onClick={() => dispatch({ type: CARD_ACTION.ADD })}>Add Card</button>
+                    <button onClick={newCard}>Add Card</button>
                 </div>
             ) : (
                 <p>Max cards for day added</p>

@@ -68,8 +68,8 @@ export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
     return { cards: cards };
 };
 
-export const addCard = (cards: MemoryCard[]): CardsUpdate => {
-    cards.push({
+export const addCard = (cards: MemoryCard[]): MemoryCard[] => {
+    const newCard = {
         id: cards.length + 1,
         correctCount: 0,
         incorrectCount: 0,
@@ -77,7 +77,7 @@ export const addCard = (cards: MemoryCard[]): CardsUpdate => {
         isPaused: undefined,
         secondAttempt: undefined,
         lastAttempt: undefined,
-    });
+    };
 
-    return { cards: cards };
+    return [...cards, newCard];
 };
