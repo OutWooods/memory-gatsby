@@ -1,20 +1,16 @@
-import React, { useReducer, useEffect } from 'react';
-import { setCards, MemoryCard } from '../store/main';
-import { reducer, init, CardAction } from '../store/reducer';
-import defaultData from '../store/defaultData';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { setCards, MemoryCard, getCards } from '../store/main';
 
 export interface WithCardsProps {
     cards: MemoryCard[];
-    dispatch: (cardArction: CardAction) => void;
+    updateCards: Dispatch<SetStateAction<MemoryCard[]>>;
 }
 
 export const WithCards = (WrappedComponent: (withCardsProps: WithCardsProps) => JSX.Element): JSX.Element => {
-    const [{ cards }, dispatch] = useReducer(reducer, {}, init);
-    // TODO find a more performant way to do this
-    useEffect(() => setCards(cards));
-    defaultData();
+    const [cards, updateCards] = useState(getCards());
+    useEffect(() => setCards(cards), [cards]);
 
-    return <WrappedComponent cards={cards} dispatch={dispatch} />;
+    return <WrappedComponent cards={cards} updateCards={updateCards} />;
 };
 
 export default WithCards;

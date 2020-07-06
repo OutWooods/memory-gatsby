@@ -13,59 +13,77 @@ const daysToAdd = (count: number): Date => {
 };
 
 const updateCard = (card: MemoryCard, correct: boolean, nextDate: Date) => {
+    const newCard = { ...card };
+
     if (correct) {
-        card.incorrectCount = 0;
-        card.correctCount += 1;
+        newCard.incorrectCount = 0;
+        newCard.correctCount += 1;
     } else {
-        card.incorrectCount += 1;
-        card.correctCount = 0;
+        newCard.incorrectCount += 1;
+        newCard.correctCount = 0;
     }
 
-    card.nextDate = nextDate;
-    card.isPaused = undefined;
-    card.lastAttempt = new Date();
+    newCard.nextDate = nextDate;
+    newCard.isPaused = undefined;
+    newCard.lastAttempt = new Date();
+
+    return newCard;
 };
 
-export const wrong = (cards: MemoryCard[], id: number): CardsUpdate => {
+export const wrong = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
-    if (!card) {
+    const index = cards.findIndex((card) => card.id === id);
+    if (!card || !index) {
         throw new Error();
     }
 
-    updateCard(card, false, ADDITIONAL_DAYS.WRONG());
+    const newCards = [...cards];
+    newCards[index] = updateCard(card, false, ADDITIONAL_DAYS.WRONG());
 
-    return { cards: cards };
+    return newCards;
 };
 
-export const right = (cards: MemoryCard[], id: number): CardsUpdate => {
+export const right = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
-    if (!card) {
+    const index = cards.findIndex((card) => card.id === id);
+    if (!card || !index) {
         throw new Error();
     }
 
-    updateCard(card, true, daysToAdd(card.correctCount));
-
-    return { cards: cards };
+    const newCards = [...cards];
+    newCards[index] = updateCard(card, true, daysToAdd(card.correctCount));
+    return newCards;
 };
 
-export const pause = (cards: MemoryCard[], id: number): CardsUpdate => {
+export const pause = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
-    if (!card) {
+    const index = cards.findIndex((card) => card.id === id);
+    if (!card || !index) {
         throw new Error();
     }
 
-    card.isPaused = new Date();
-    return { cards: cards };
+    const newCards = [...cards];
+    const newCard = { ...card };
+    newCard.isPaused = new Date();
+    newCards[index] = newCard;
+
+    return newCards;
 };
 
-export const practise = (cards: MemoryCard[], id: number): CardsUpdate => {
+export const practise = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
-    if (!card) {
+    const index = cards.findIndex((card) => card.id === id);
+    if (!card || !index) {
         throw new Error();
     }
 
-    card.secondAttempt = new Date();
-    return { cards: cards };
+    const newCards = [...cards];
+    const newCard = { ...card };
+    newCard.secondAttempt = new Date();
+    newCard.nextDate = new Date();
+    newCards[index] = newCard;
+
+    return newCards;
 };
 
 export const addCard = (cards: MemoryCard[]): MemoryCard[] => {

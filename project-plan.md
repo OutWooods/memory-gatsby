@@ -4,19 +4,21 @@
 
 [x] Extract the reducers to separate files
 
-[] <- see if I can get props with HOC working>
+[x] <- see if I can get props with HOC working>
 
-[] Add unit tests for the 3 reducers
+[x] Add unit tests for the 3 reducers (deleted te reducers)
 
 [] Improve index page logic (break to separate pages)
 
-  - [] Extract paused cards to separate page
+  - [x] Extract paused cards to separate page
 
 [] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
 
 [] Move some key definitions to separate files and add tests to those
 
-[] Find more efficient way to store in local storage
+[] Improve component naming
+
+[x] Find more efficient way to store in local storage
 
 [x] Setup jest (or look at what gatsby does for testing)
 

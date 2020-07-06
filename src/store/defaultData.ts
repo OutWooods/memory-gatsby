@@ -40,7 +40,7 @@ export const defaultData = (): any => {
     const third = [...thirdPart1, ...thirdPart2].map((card) => addCard(card, 1, 2));
     const fourth = [105, 127, 132].map((card) => addCard(card, 1, 1));
     const fifth = [121, 131, 128, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 112].map((card) =>
-        addCard(card, 1, 0),
+        addCard(card, 0, 0),
     );
     const all = [...first, ...second, ...third, ...fourth, ...fifth].sort((first, second) =>
         first.id > second.id ? 1 : -1,

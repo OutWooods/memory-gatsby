@@ -4,11 +4,11 @@ import { showForPractise } from '../utils/cardRules';
 import AllCardsView from '../components/AllCardsView';
 import WithCards, { WithCardsProps } from '../components/GetCards';
 
-const WrongPage = ({ cards, dispatch }: WithCardsProps): JSX.Element => {
+const WrongPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
     const practiseCards = cards.filter((card) => showForPractise(card));
     return (
         <Layout>
-            <AllCardsView cards={practiseCards} dispatch={dispatch} title="Wrong cards" />
+            <AllCardsView cards={cards} specificCards={practiseCards} updateCards={updateCards} title="Wrong cards" />
         </Layout>
     );
 };
