@@ -8,6 +8,8 @@
 
 [x] Add unit tests for the 3 reducers (deleted te reducers)
 
+[x] Fix all card view
+
 [] Improve index page logic (break to separate pages)
 
   - [x] Extract paused cards to separate page
@@ -137,6 +139,10 @@ Now do all the refactoring and testing - ESP TESTING
    [] Max cards in a day is toggable after a few days
 
    [] Tips at different stages - hints
+
+[] Hint button <- correct with hint, will make no different, treat as wrong
+
+[] Tweak (or make changable) how many cards you can add
 
 ## Future ideas
 

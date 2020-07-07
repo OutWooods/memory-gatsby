@@ -38,10 +38,12 @@ const IndexPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
         );
     }
 
+    const markRight = (id: number): void => updateCards(right(cards, id));
+    const markWrong = (id: number): void => updateCards(wrong(cards, id));
     if (pausedCards.length !== 0) {
         return (
             <Layout>
-                <AllCardsView cards={cards} specificCards={pausedCards} updateCards={updateCards} title="Paused" />
+                <AllCardsView cards={pausedCards} right={markRight} wrong={markWrong} title="Paused" />
             </Layout>
         );
     }
