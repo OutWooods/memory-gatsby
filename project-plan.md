@@ -10,17 +10,21 @@
 
 [x] Fix all card view
 
-[] Properly setup context (and if so, add in some sort of base pattern into my base design)
+[x] Properly setup context (and if so, add in some sort of base pattern into my base design)
 
-[] Improve index page logic (break to separate pages)
+[x] Improve index page logic (break to separate pages)
 
   - [x] Extract paused cards to separate page
 
-[] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
+[x] Work out how directing to different pages could work - and how to use context to select which card is currently viewed
 
-[] Move some key definitions to separate files and add tests to those
+[x] Move some key definitions to separate files and add tests to those
 
 [] Improve component naming
+
+[] Add tests for Utils
+
+[] Add tests for store
 
 [x] Find more efficient way to store in local storage
 
@@ -29,6 +33,10 @@
 [x] Extract actions out into enums
 
 [] Are there any ways of using Gatsby Better?
+
+[] Add tests and linter to Github CI
+
+[] Write changelog
 
 ## Features
 
@@ -104,15 +112,9 @@
 
 [x] Better format for message of cards tomorow (and give the numbers)
 
-Now do all the refactoring and testing - ESP TESTING
-
-## Questions
-
-1. How do you keep data persisting between pages? (context?)
-
 -- Alpha Trial
 
-[] Add a graphing library to show data on cards
+[] Add a graphing (ds?) library to show data on cards
 
 [] Show current card plan for week (and following months)
 
@@ -163,6 +165,8 @@ Now do all the refactoring and testing - ESP TESTING
 
 6. Stats page - where everything is
 
+7. Make algorithm programatic so after a while, it'll shift gaps between cards for the person.
+
 ## School based usage
  - Individual accounts (essentially separate site - maybe just be an entirely separate site?)
     - Can make own cards
@@ -185,22 +189,3 @@ Now do all the refactoring and testing - ESP TESTING
    - Send cards to their teacher to approve (and then share)
 
 ## Random notes
-
--- Algorithm
-
-Wrong - Show tomorrow
-Right - 2 day, 3 days, 5 days, 7 days, 1 month, 3 months
-
-Add new card - only if 15 or lower are happening tomorrow
-Show count of remaining cards
-
-card  = {
-    number: ,
-    correct-chain: ,
-    next-day: date,
-}
-
-new - adds a card for tomorrow
-
-
-## Tags
