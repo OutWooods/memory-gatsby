@@ -10,6 +10,8 @@
 
 [x] Fix all card view
 
+[] Properly setup context (and if so, add in some sort of base pattern into my base design)
+
 [] Improve index page logic (break to separate pages)
 
   - [x] Extract paused cards to separate page

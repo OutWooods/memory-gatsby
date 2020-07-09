@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/layout';
 import { showForPractise } from '../utils/cardRules';
 import AllCardsView from '../components/AllCardsView';
-import WithCards, { WithCardsProps } from '../components/GetCards';
-import { practise } from '../utils/cards';
+import { WithCardsContext } from '../cardsProvider';
 
-const WrongPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
+const WrongPage = (): JSX.Element => {
+    const { cards, practiseCard } = useContext(WithCardsContext);
+
     const practiseCards = cards.filter((card) => showForPractise(card));
-    const practiseCard = (id: number): void => updateCards(practise(cards, id));
     return (
         <Layout>
             <AllCardsView cards={practiseCards} right={practiseCard} wrong={practiseCard} title="Wrong cards" />
@@ -15,4 +15,4 @@ const WrongPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
     );
 };
 
-export default (): JSX.Element => WithCards(WrongPage);
+export default WrongPage;

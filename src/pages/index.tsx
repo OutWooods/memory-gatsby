@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/layout';
 import { MemoryCard } from '../store/main';
 import Card from '../components/card';
@@ -7,24 +7,26 @@ import { isTomorrow } from 'date-fns';
 import ListLink from '../components/listLink';
 import { formatter } from '../utils/formatter';
 import AllCardsView from '../components/AllCardsView';
-import WithCards, { WithCardsProps } from '../components/GetCards';
-import { right, wrong, pause } from '../utils/cards';
+import { WithCardsContext } from '../cardsProvider';
 
 const cardConstructor = (
-    cards: MemoryCard[],
     card: MemoryCard,
-    updateCards: Dispatch<SetStateAction<MemoryCard[]>>,
+    markWrong: (id: number) => void,
+    markRight: (id: number) => void,
+    markPause: (id: number) => void,
 ) => (
     <Card
         key={card.id}
         card={card}
-        wrong={(): void => updateCards(wrong(cards, card.id))}
-        right={(): void => updateCards(right(cards, card.id))}
-        pause={(): void => updateCards(pause(cards, card.id))}
+        wrong={() => markWrong(card.id)}
+        right={() => markRight(card.id)}
+        pause={() => markPause(card.id)}
     ></Card>
 );
 
-const IndexPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
+const IndexPage = (): JSX.Element => {
+    const { cards, markRight, markWrong, markPause } = useContext(WithCardsContext);
+
     const todaysCards = cards.filter((card) => showToday(card));
     const pausedCards = cards.filter((card) => card.isPaused);
     if (todaysCards.length !== 0) {
@@ -32,14 +34,12 @@ const IndexPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
             <Layout>
                 <p>Remaining cards you need today are: {formatter(todaysCards.map((card) => card.id))}</p>
                 <br />
-                {cardConstructor(cards, todaysCards[0], updateCards)}
+                {cardConstructor(todaysCards[0], markRight, markWrong, markPause)}
                 {pausedCards.length !== 0 && <ListLink to="/paused">Paused cards</ListLink>}
             </Layout>
         );
     }
 
-    const markRight = (id: number): void => updateCards(right(cards, id));
-    const markWrong = (id: number): void => updateCards(wrong(cards, id));
     if (pausedCards.length !== 0) {
         return (
             <Layout>
@@ -62,4 +62,4 @@ const IndexPage = ({ cards, updateCards }: WithCardsProps): JSX.Element => {
     );
 };
 
-export default (): JSX.Element => WithCards(IndexPage);
+export default IndexPage;

@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { addCard } from '../utils/cards';
+import React, { useContext } from 'react';
 import Layout from '../components/layout';
-import { setCards, getCards } from '../store/main';
 import { isTomorrow } from 'date-fns';
 import { MAX_CARDS } from '../utils/cardRules';
+import { WithCardsContext } from '../cardsProvider';
 
 const NewPage = (): JSX.Element => {
-    const [cards, updateCards] = useState(getCards());
-    const newCard = (): void => updateCards(addCard(cards));
-    useEffect(() => setCards(cards), [cards]);
+    const { cards, newCard } = useContext(WithCardsContext);
 
     const tomorrowsCards = cards.filter((card) => isTomorrow(card.nextDate)).length;
     const newCards = cards.filter((card) => !card.lastAttempt).length;
+
     return (
         <Layout>
             <p>Add cards</p>
             <p className={tomorrowsCards >= MAX_CARDS.TOTAL ? 'text-red-400' : ''}>
-                Tomorrow you have {tomorrowsCards} to do{' '}
+                Tomorrow you have {tomorrowsCards} to do
                 {tomorrowsCards >= MAX_CARDS.TOTAL && 'probably dont add too many new ones'}
             </p>
             {newCards !== 0 && (
