@@ -9,12 +9,13 @@ import { formatter } from '../utils/formatter';
 import AllCardsView from '../components/AllCardsView';
 import { WithCardsContext } from '../cardsProvider';
 
-const cardConstructor = (
-    card: MemoryCard,
-    markWrong: (id: number) => void,
-    markRight: (id: number) => void,
-    markPause: (id: number) => void,
-) => (
+export interface MarkCardActions {
+    markWrong: (id: number) => void;
+    markRight: (id: number) => void;
+    markPause: (id: number) => void;
+}
+
+const cardConstructor = (card: MemoryCard, { markRight, markWrong, markPause }: MarkCardActions) => (
     <Card
         key={card.id}
         card={card}
@@ -34,7 +35,7 @@ const IndexPage = (): JSX.Element => {
             <Layout>
                 <p>Remaining cards you need today are: {formatter(todaysCards.map((card) => card.id))}</p>
                 <br />
-                {cardConstructor(todaysCards[0], markRight, markWrong, markPause)}
+                {cardConstructor(todaysCards[0], { markRight, markWrong, markPause })}
                 {pausedCards.length !== 0 && <ListLink to="/paused">Paused cards</ListLink>}
             </Layout>
         );
