@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '../components/layout';
+import Question from '../components/question';
 
 const IndexPage = (): JSX.Element => {
-    const [count, setCount] = useState(0);
+    const makeQuestion = () => ({
+        question: Math.random(),
+        answer: Math.random(),
+        showAnswer: false,
+    });
 
     return (
         <Layout>
-            <h1 className="text-blue-200">Hello</h1>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click</button>
+            <Question questionIdentifier="A1" generateQuestion={makeQuestion}></Question>
+            <Question questionIdentifier="A2" generateQuestion={makeQuestion}></Question>
+            <Question questionIdentifier="B1" generateQuestion={makeQuestion}></Question>
         </Layout>
     );
 };
