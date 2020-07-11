@@ -9,7 +9,7 @@ export const WithExampleContext = React.createContext<ExampleProps>({
 });
 
 const ExampleContext = ({ children }: { children: JSX.Element }) => {
-    const [examples] = useState([]);
+    const [examples] = useState([1]);
 
     const value = { examples };
 
