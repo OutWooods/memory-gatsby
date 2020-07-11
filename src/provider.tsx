@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export interface ExampleProps {
-    examples: number[],
+    examples: number[];
 }
 
 export const WithExampleContext = React.createContext<ExampleProps>({
