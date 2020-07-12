@@ -19,9 +19,9 @@ interface LooseObject {
 export const ADDITIONAL_DAYS: LooseObject = {
     WRONG: (): Date => startOfTomorrow(),
     ['1']: (): Date => addDays(startOfToday(), 2),
-    ['2']: (): Date => addDays(startOfWeek(new Date()), 7),
-    ['3']: (): Date => addDays(startOfWeek(new Date()), 28),
-    ['4']: (): Date => addDays(startOfWeek(new Date()), 84),
+    ['2']: (): Date => addDays(startOfToday(), 4),
+    ['3']: (): Date => addDays(startOfWeek(new Date()), 7),
+    ['4']: (): Date => addDays(startOfWeek(new Date()), 28),
     DEFAULT: (): Date => addDays(startOfWeek(new Date()), 84),
 };
 
