@@ -8,7 +8,7 @@ const IndexPage = (): JSX.Element => {
     const { cards, markWrong } = useContext(WithCardsContext);
 
     const cardComponents = cards
-        .sort((a, b) => differenceInMilliseconds(a.nextDate, b.nextDate))
+        .sort((a, b) => -1 * differenceInMilliseconds(a.nextDate, b.nextDate))
         .map((card) => (
             <div key={card.id} className="m-4 w-1/3">
                 <p>Card No:{card.id}</p>
