@@ -16,6 +16,9 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
                 <ul style={{ listStyle: `none`, float: `right` }}>
                     <ListLink to="/">Home</ListLink>
                 </ul>
+                <ul style={{ listStyle: `none`, float: `right` }}>
+                    <ListLink to="/edit">Edit</ListLink>
+                </ul>
             </header>
             {children}
         </div>
