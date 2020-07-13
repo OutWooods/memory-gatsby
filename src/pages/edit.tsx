@@ -18,7 +18,6 @@ const IndexPage = (): JSX.Element => {
             </div>
         ));
 
-    console.log(cardComponents);
     return (
         <Layout>
             <p>Edit cards</p>
