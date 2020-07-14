@@ -34,7 +34,7 @@ const updateCard = (card: MemoryCard, correct: boolean) => {
 export const wrong = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
     const index = cards.findIndex((card) => card.id === id);
-    if (!card || (!!index && index !== 0)) {
+    if (!card || (!index && index !== 0)) {
         throw new Error();
     }
 
@@ -47,9 +47,7 @@ export const wrong = (cards: MemoryCard[], id: number): MemoryCard[] => {
 export const right = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
     const index = cards.findIndex((card) => card.id === id);
-    console.log(card);
-    console.log(index);
-    if (!card || (!!index && index !== 0)) {
+    if (!card || (!index && index !== 0)) {
         throw new Error();
     }
 
@@ -61,7 +59,7 @@ export const right = (cards: MemoryCard[], id: number): MemoryCard[] => {
 export const pause = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
     const index = cards.findIndex((card) => card.id === id);
-    if (!card || (!!index && index !== 0)) {
+    if (!card || (!index && index !== 0)) {
         throw new Error();
     }
 
@@ -76,7 +74,7 @@ export const pause = (cards: MemoryCard[], id: number): MemoryCard[] => {
 export const practise = (cards: MemoryCard[], id: number): MemoryCard[] => {
     const card = cards.find((card) => card.id === id);
     const index = cards.findIndex((card) => card.id === id);
-    if (!card || (!!index && index !== 0)) {
+    if (!card || (!index && index !== 0)) {
         throw new Error();
     }
 
