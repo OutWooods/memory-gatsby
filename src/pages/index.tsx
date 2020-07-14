@@ -3,7 +3,7 @@ import Layout from '../components/layout';
 import { MemoryCard } from '../store/main';
 import Card from '../components/card';
 import { showForPractise, showToday } from '../utils/cardRules';
-import { isTomorrow } from 'date-fns';
+import { isTomorrow, differenceInMilliseconds } from 'date-fns';
 import ListLink from '../components/listLink';
 import { formatter } from '../utils/formatter';
 import AllCardsView from '../components/AllCardsView';
@@ -28,7 +28,9 @@ const cardConstructor = (card: MemoryCard, { markRight, markWrong, markPause }: 
 const IndexPage = (): JSX.Element => {
     const { cards, markRight, markWrong, markPause } = useContext(WithCardsContext);
 
-    const todaysCards = cards.filter((card) => showToday(card));
+    const todaysCards = cards
+        .filter((card) => showToday(card))
+        .sort((a, b) => -1 * differenceInMilliseconds(a.nextDate, b.nextDate));
     const pausedCards = cards.filter((card) => card.isPaused);
     if (todaysCards.length !== 0) {
         return (
