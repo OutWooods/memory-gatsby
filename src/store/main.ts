@@ -26,6 +26,8 @@ export const getCards = (): MemoryCard[] => {
             card.lastAttempt = card.lastAttempt ? new Date(card.lastAttempt) : undefined;
             return card;
         });
+        console.log(storedCards[0].nextDate);
+        console.log(storedCards[0].correctCount);
         let lastCard = 0;
         const newCards = storedCards.filter((card: MemoryCard) => {
             if (lastCard === card.id) {
