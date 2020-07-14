@@ -28,9 +28,7 @@ const cardConstructor = (card: MemoryCard, { markRight, markWrong, markPause }: 
 const IndexPage = (): JSX.Element => {
     const { cards, markRight, markWrong, markPause } = useContext(WithCardsContext);
 
-    const todaysCards = cards
-        .filter((card) => showToday(card))
-        .sort((a, b) => -1 * differenceInMilliseconds(a.nextDate, b.nextDate));
+    const todaysCards = cards.filter((card) => showToday(card)).sort((a, b) => a.id - b.id);
     const pausedCards = cards.filter((card) => card.isPaused);
     if (todaysCards.length !== 0) {
         return (
